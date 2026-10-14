@@ -51,8 +51,7 @@ export class Login {
       },
       error: (error: HttpErrorResponse) => {
         this.enviando.set(false);
-        const mensaje = error.error?.message ?? 'DNI o contraseña incorrectos.';
-        this.snackBar.open(mensaje, 'Cerrar', { duration: 5000 });
+        const mensaje = error.error?.estado ?? 'DNI o contraseña incorrectos.';        this.snackBar.open(mensaje, 'Cerrar', { duration: 5000 });
       },
     });
   }
