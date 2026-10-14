@@ -45,6 +45,16 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="telefono" inputmode="tel" autocomplete="tel" />
+          @if (form.controls.telefono.hasError('required')) {
+            <mat-error>El teléfono es obligatorio.</mat-error>
+          } @else if (form.controls.telefono.hasError('pattern')) {
+            <mat-error>Ingresá un teléfono válido (solo números).</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
           <input matInput type="password" formControlName="password" autocomplete="new-password" />
           @if (form.controls.password.hasError('required')) {
