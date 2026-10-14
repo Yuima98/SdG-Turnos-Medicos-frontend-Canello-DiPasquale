@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse, RegistroRequest } from '../models/auth.model';
 import { Usuario } from '../models/usuario.model';
 
-const TOKEN_KEY = 'sdg_token';
+export const TOKEN_KEY = 'sdg_token';
 
 @Injectable({
   providedIn: 'root',
