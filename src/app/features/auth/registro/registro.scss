@@ -1,0 +1,36 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  button {
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+}
+
+.auth-form-fila {
+  display: flex;
+  gap: 12px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.auth-footer {
+  display: flex;
+  gap: 6px;
+  padding: 16px;
+}
