@@ -9,8 +9,9 @@ export interface RegistroRequest {
   dni: string;
   email: string;
   password: string;
-  fechaNacimiento: string;
-  coberturaId: number;
+  fecha_nacimiento: string;
+  telefono: string;
+  id_cobertura: number;
 }
 
 export interface LoginResponse {
