@@ -44,6 +44,7 @@ export class Registro {
   protected readonly form = this.fb.nonNullable.group({
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
+    telefono: ['', [Validators.required, Validators.pattern(/^\d{6,15}$/)]],
     dni: ['', [Validators.required, Validators.pattern(/^\d{7,8}$/)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -75,8 +76,9 @@ export class Registro {
         dni: valores.dni,
         email: valores.email,
         password: valores.password,
-        fechaNacimiento: this.aFechaIso(valores.fechaNacimiento!),
-        coberturaId: valores.coberturaId!,
+        fecha_nacimiento: this.aFechaIso(valores.fechaNacimiento!),
+        telefono: valores.telefono,
+        id_cobertura: valores.coberturaId!,
       })
       .subscribe({
         next: () => {
