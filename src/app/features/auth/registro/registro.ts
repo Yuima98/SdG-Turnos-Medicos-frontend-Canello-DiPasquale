@@ -88,8 +88,7 @@ export class Registro {
         },
         error: (error: HttpErrorResponse) => {
           this.enviando.set(false);
-          const mensaje = error.error?.message ?? 'No se pudo completar el registro.';
-          this.snackBar.open(mensaje, 'Cerrar', { duration: 5000 });
+          const mensaje = error.error?.estado ?? 'No se pudo completar el registro.';          this.snackBar.open(mensaje, 'Cerrar', { duration: 5000 });
         },
       });
   }
