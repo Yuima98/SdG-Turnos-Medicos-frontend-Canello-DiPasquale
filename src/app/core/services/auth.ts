@@ -1,10 +1,9 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, switchMap, tap } from 'rxjs';
+import { Observable, map, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse, RegistroRequest } from '../models/auth.model';
 import { Usuario } from '../models/usuario.model';
-import { Observable, map, switchMap, tap } from 'rxjs';
 
 const TOKEN_KEY = 'sdg_token';
 
