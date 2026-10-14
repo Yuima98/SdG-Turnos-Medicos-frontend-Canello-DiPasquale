@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, switchMap, tap } from 'rxjs';
+import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse, RegistroRequest } from '../models/auth.model';
 import { Usuario } from '../models/usuario.model';
@@ -42,6 +42,13 @@ export class Auth {
       map((respuesta) => respuesta.datos),
       tap((usuario) => this.usuarioActual.set(usuario)),
     );
+  }
+
+  obtenerUsuario(): Observable<Usuario | null> {
+    const actual = this.usuarioActual();
+    if (actual) return of(actual);
+    if (!this.obtenerToken()) return of(null);
+    return this.cargarPerfil().pipe(catchError(() => of(null)));
   }
 
   cerrarSesion(): void {
