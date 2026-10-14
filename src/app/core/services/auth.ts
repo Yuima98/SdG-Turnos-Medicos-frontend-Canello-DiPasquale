@@ -4,6 +4,7 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse, RegistroRequest } from '../models/auth.model';
 import { Usuario } from '../models/usuario.model';
+import { Observable, map, switchMap, tap } from 'rxjs';
 
 const TOKEN_KEY = 'sdg_token';
 
@@ -29,16 +30,19 @@ export class Auth {
   }
 
   login(credenciales: LoginRequest): Observable<Usuario> {
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, credenciales).pipe(
-      tap((respuesta) => localStorage.setItem(TOKEN_KEY, respuesta.token)),
-      switchMap(() => this.cargarPerfil()),
-    );
+    return this.http
+      .post<{ datos: LoginResponse }>(`${environment.apiUrl}/auth/login`, credenciales)
+      .pipe(
+        tap((respuesta) => localStorage.setItem(TOKEN_KEY, respuesta.datos.token)),
+        switchMap(() => this.cargarPerfil()),
+      );
   }
 
   cargarPerfil(): Observable<Usuario> {
-    return this.http
-      .get<Usuario>(`${environment.apiUrl}/auth/perfil`)
-      .pipe(tap((usuario) => this.usuarioActual.set(usuario)));
+    return this.http.get<{ datos: Usuario }>(`${environment.apiUrl}/auth/perfil`).pipe(
+      map((respuesta) => respuesta.datos),
+      tap((usuario) => this.usuarioActual.set(usuario)),
+    );
   }
 
   cerrarSesion(): void {
