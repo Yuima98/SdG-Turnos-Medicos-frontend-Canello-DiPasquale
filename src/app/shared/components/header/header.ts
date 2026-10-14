@@ -15,24 +15,25 @@ interface OpcionMenu {
 
 const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
   paciente: [
-    { etiqueta: 'Mis turnos', ruta: '/en-construccion' },
-    { etiqueta: 'Reservar turno', ruta: '/en-construccion' },
-    { etiqueta: 'Mi perfil', ruta: '/paciente/mi-perfil' },  ],
+    { etiqueta: 'Mis turnos', ruta: '/paciente/en-construccion' },
+    { etiqueta: 'Reservar turno', ruta: '/paciente/en-construccion' },
+    { etiqueta: 'Mi perfil', ruta: '/paciente/mi-perfil' },
+  ],
   medico: [
-    { etiqueta: 'Mi agenda', ruta: '/en-construccion' },
-    { etiqueta: 'Mis turnos', ruta: '/en-construccion' },
-    { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
+    { etiqueta: 'Mi agenda', ruta: '/medico/en-construccion' },
+    { etiqueta: 'Mis turnos', ruta: '/medico/en-construccion' },
+    { etiqueta: 'Mi perfil', ruta: '/medico/mi-perfil' },
   ],
   operador: [
-    { etiqueta: 'Turnos', ruta: '/en-construccion' },
-    { etiqueta: 'Pacientes', ruta: '/en-construccion' },
-    { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
+    { etiqueta: 'Turnos', ruta: '/operador/en-construccion' },
+    { etiqueta: 'Pacientes', ruta: '/operador/en-construccion' },
+    { etiqueta: 'Mi perfil', ruta: '/operador/mi-perfil' },
   ],
   admin: [
-    { etiqueta: 'Usuarios', ruta: '/en-construccion' },
-    { etiqueta: 'Coberturas', ruta: '/en-construccion' },
-    { etiqueta: 'Reportes', ruta: '/en-construccion' },
-    { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
+    { etiqueta: 'Usuarios', ruta: '/admin/en-construccion' },
+    { etiqueta: 'Coberturas', ruta: '/admin/en-construccion' },
+    { etiqueta: 'Reportes', ruta: '/admin/en-construccion' },
+    { etiqueta: 'Mi perfil', ruta: '/admin/mi-perfil' },
   ],
 };
 

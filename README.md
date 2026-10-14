@@ -17,11 +17,13 @@ Angular 21 requiere Node `^20.19.0`, `^22.12.0` o `^24.0.0`.
 
 1. Instalar dependencias:
 
-   ```bash
+```bash
    npm install
-   ```
+```
 
-2. Configurar la URL base del backend en `src/environments/environment.ts` y `src/environments/environment.development.ts` (clave `apiUrl`). Por defecto apunta a `http://localhost:3000/api`.
+   Si falla con `Cannot read properties of null (reading 'edgesOut')`, usar `npm install --legacy-peer-deps`.
+
+2. Configurar la URL base del backend en `src/environments/environment.ts` y `src/environments/environment.development.ts` (clave `apiUrl`). Por defecto apunta a `http://localhost:3000`.
 
 3. Asegurarse de que el backend tenga CORS habilitado para `http://localhost:4200`.
 
