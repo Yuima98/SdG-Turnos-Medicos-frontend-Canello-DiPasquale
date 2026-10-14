@@ -1,1 +1,34 @@
-<p>mi-perfil works!</p>
+<div class="auth-page">
+  <mat-card class="auth-card">
+    <mat-card-header>
+      <mat-card-title>Mi perfil</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (auth.usuario(); as usuario) {
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>Nombre</span>
+            <span matListItemLine>{{ usuario.nombre }} {{ usuario.apellido }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>DNI</span>
+            <span matListItemLine>{{ usuario.dni }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>Email</span>
+            <span matListItemLine>{{ usuario.email }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>Teléfono</span>
+            <span matListItemLine>{{ usuario.telefono }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>Fecha de nacimiento</span>
+            <span matListItemLine>{{ usuario.fecha_nacimiento }}</span>
+          </mat-list-item>
+        </mat-list>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
