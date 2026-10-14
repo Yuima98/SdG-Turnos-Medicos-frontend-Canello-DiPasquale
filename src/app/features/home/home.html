@@ -1,0 +1,26 @@
+@if (auth.estaLogueado()) {
+  <section class="home home-con-sesion">
+    <mat-icon aria-hidden="true">menu</mat-icon>
+    <h1>¡Hola, {{ auth.usuario()?.nombre }}!</h1>
+    <p>Elegí una función del menú para continuar.</p>
+  </section>
+} @else {
+  <section class="home home-sin-sesion">
+    <h1>Bienvenido a la Clínica Virtual</h1>
+    <p>
+      Iniciá sesión o registrate para pedir turnos, consultar a tus médicos de cabecera y
+      llevar el seguimiento de tu historia clínica desde un solo lugar.
+    </p>
+
+    <div class="home-acciones">
+      <button mat-raised-button color="primary" routerLink="/login">Iniciar sesión</button>
+      <button mat-stroked-button routerLink="/registro">Registrarme</button>
+    </div>
+
+    <ul class="home-beneficios">
+      <li>Reservá y gestioná tus turnos médicos online.</li>
+      <li>Accedé a tu perfil y datos de cobertura en todo momento.</li>
+      <li>Recibí notificaciones sobre tus próximos turnos.</li>
+    </ul>
+  </section>
+}

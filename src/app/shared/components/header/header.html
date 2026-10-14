@@ -1,0 +1,32 @@
+<mat-toolbar color="primary" class="header">
+  @if (auth.estaLogueado()) {
+    <button mat-icon-button [matMenuTriggerFor]="menuNav" aria-label="Abrir menú de navegación">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="/" class="header-title">Clínica Virtual</a>
+  } @else {
+    <span class="header-title">Bienvenido a la clínica virtual</span>
+  }
+
+  <span class="header-spacer"></span>
+
+  @if (auth.estaLogueado()) {
+    <button mat-icon-button aria-label="Notificaciones" disabled>
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <span class="header-usuario">{{ auth.usuario()?.nombre }} {{ auth.usuario()?.apellido }}</span>
+    <button mat-icon-button [matTooltip]="'Tipo de usuario: ' + etiquetaRol()" aria-label="Tipo de usuario">
+      <mat-icon>info</mat-icon>
+    </button>
+    <button mat-button (click)="cerrarSesion()">Cerrar sesión</button>
+  } @else {
+    <button mat-button routerLink="/login">Iniciar sesión</button>
+    <button mat-raised-button routerLink="/registro">Registrarse</button>
+  }
+</mat-toolbar>
+
+<mat-menu #menuNav="matMenu">
+  @for (opcion of opcionesMenu(); track opcion.etiqueta) {
+    <a mat-menu-item [routerLink]="opcion.ruta">{{ opcion.etiqueta }}</a>
+  }
+</mat-menu>
