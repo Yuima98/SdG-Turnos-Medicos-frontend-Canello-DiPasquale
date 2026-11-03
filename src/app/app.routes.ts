@@ -6,6 +6,7 @@ import { EnConstruccion } from './features/en-construccion/en-construccion';
 import { invitadoGuard, rolGuard } from './core/guards/auth-guard';
 import { Catalogo } from './features/admin/catalogo/catalogo';
 import { Usuarios } from './features/admin/usuarios/usuarios';
+import { Auditoria } from './features/admin/auditoria/auditoria';
 import {
   CONFIG_COBERTURAS,
   CONFIG_ESPECIALIDADES,
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'especialidades', component: Catalogo, data: { config: CONFIG_ESPECIALIDADES } },
       { path: 'coberturas', component: Catalogo, data: { config: CONFIG_COBERTURAS } },
       { path: 'usuarios', component: Usuarios },
+      { path: 'auditoria', component: Auditoria },
     ],
   },
   { path: '**', redirectTo: '' },

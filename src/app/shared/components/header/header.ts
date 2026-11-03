@@ -38,6 +38,7 @@ const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
     { etiqueta: 'Sedes', ruta: '/admin/sedes' },
     { etiqueta: 'Especialidades', ruta: '/admin/especialidades' },
     { etiqueta: 'Coberturas', ruta: '/admin/coberturas' },
+    { etiqueta: 'Auditoría', ruta: '/admin/auditoria' },
     { etiqueta: 'Reportes', ruta: '/en-construccion' },
     { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
   ],
