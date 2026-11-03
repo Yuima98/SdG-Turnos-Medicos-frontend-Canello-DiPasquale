@@ -1,0 +1,44 @@
+<form class="filtros" [formGroup]="form" (ngSubmit)="buscar()">
+  <mat-form-field appearance="outline">
+    <mat-label>DNI o apellido</mat-label>
+    <input matInput formControlName="texto" />
+    <mat-error>Ingresá un DNI o apellido.</mat-error>
+  </mat-form-field>
+  <button mat-flat-button type="submit">
+    <mat-icon>search</mat-icon>
+    Buscar
+  </button>
+</form>
+
+@if (busco()) {
+  <app-estado-lista
+    [cargando]="resultados.cargando()"
+    [error]="resultados.error()"
+    [vacio]="resultados.datos().length === 0"
+    mensajeVacio="No se encontraron pacientes."
+    (reintentar)="buscar()"
+  >
+    <table mat-table [dataSource]="resultados.datos()" class="tabla">
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Paciente</th>
+        <td mat-cell *matCellDef="let paciente">{{ paciente.apellido }}, {{ paciente.nombre }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef>DNI</th>
+        <td mat-cell *matCellDef="let paciente">{{ paciente.dni }}</td>
+      </ng-container>
+      <ng-container matColumnDef="cobertura">
+        <th mat-header-cell *matHeaderCellDef>Cobertura</th>
+        <td mat-cell *matCellDef="let paciente">{{ paciente.cobertura }}</td>
+      </ng-container>
+      <ng-container matColumnDef="accion">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let paciente">
+          <button mat-stroked-button type="button" (click)="seleccion.emit(paciente)">Seleccionar</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+    </table>
+  </app-estado-lista>
+}

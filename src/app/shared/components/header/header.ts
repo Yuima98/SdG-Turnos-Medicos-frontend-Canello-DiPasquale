@@ -26,7 +26,7 @@ const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
   medico: [
     { etiqueta: 'Mi agenda', ruta: '/medico/agenda' },
     { etiqueta: 'Turnos programados', ruta: '/medico/turnos' },
-    { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
+    { etiqueta: 'Historial clínico', ruta: '/medico/historial' },
   ],
   operador: [
     { etiqueta: 'Turnos', ruta: '/en-construccion' },

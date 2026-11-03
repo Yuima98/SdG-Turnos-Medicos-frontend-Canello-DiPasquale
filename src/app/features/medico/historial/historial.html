@@ -1,0 +1,41 @@
+<section class="pagina">
+  <div class="pagina-encabezado">
+    <h1>Historial clínico</h1>
+    @if (paciente()) {
+      <button mat-stroked-button (click)="paciente.set(null)">Buscar otro paciente</button>
+    }
+  </div>
+
+  @if (paciente(); as seleccionado) {
+    <p>
+      <strong>{{ seleccionado.apellido }}, {{ seleccionado.nombre }}</strong>
+      — DNI {{ seleccionado.dni }}. Se muestran solo los turnos que atendiste vos.
+    </p>
+
+    <app-estado-lista
+      [cargando]="registros.cargando()"
+      [error]="registros.error()"
+      [vacio]="registros.datos().length === 0"
+      mensajeVacio="No atendiste turnos de este paciente."
+      (reintentar)="cargar()"
+    >
+      <div class="registros">
+        @for (registro of registros.datos(); track registro.id) {
+          <mat-card appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>{{ registro.fecha_turno | date: 'dd/MM/yyyy' }} — {{ registro.hora_turno }}</mat-card-title>
+              <mat-card-subtitle>{{ registro.especialidad }} · {{ registro.sede }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p><strong>Diagnóstico:</strong> {{ registro.diagnostico }}</p>
+              <p><strong>Tratamiento:</strong> {{ registro.tratamiento || '—' }}</p>
+              <p><strong>Observaciones:</strong> {{ registro.observaciones || '—' }}</p>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    </app-estado-lista>
+  } @else {
+    <app-buscador-pacientes (seleccion)="seleccionar($event)" />
+  }
+</section>
