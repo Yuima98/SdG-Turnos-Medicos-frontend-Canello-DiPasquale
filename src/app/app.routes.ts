@@ -9,6 +9,7 @@ import { Usuarios } from './features/admin/usuarios/usuarios';
 import { Auditoria } from './features/admin/auditoria/auditoria';
 import { Reportes } from './features/admin/reportes/reportes';
 import { MiAgenda } from './features/medico/mi-agenda/mi-agenda';
+import { TurnosProgramados } from './features/medico/turnos-programados/turnos-programados';
 import {
   CONFIG_COBERTURAS,
   CONFIG_ESPECIALIDADES,
@@ -35,7 +36,10 @@ export const routes: Routes = [
   {
     path: 'medico',
     canActivate: [rolGuard('medico')],
-    children: [{ path: 'agenda', component: MiAgenda }],
+    children: [
+      { path: 'agenda', component: MiAgenda },
+      { path: 'turnos', component: TurnosProgramados },
+    ],
   },
   { path: '**', redirectTo: '' },
 ];
