@@ -20,7 +20,7 @@ interface OpcionMenu {
 const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
   paciente: [
     { etiqueta: 'Mis turnos', ruta: '/en-construccion' },
-    { etiqueta: 'Reservar turno', ruta: '/en-construccion' },
+    { etiqueta: 'Nuevo turno', ruta: '/paciente/nuevo-turno' },
     { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
   ],
   medico: [

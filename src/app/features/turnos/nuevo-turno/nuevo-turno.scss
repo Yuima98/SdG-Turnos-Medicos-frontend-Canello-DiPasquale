@@ -1,0 +1,31 @@
+.campo {
+  width: 320px;
+  margin-top: 8px;
+}
+
+.campo-nota {
+  width: 100%;
+  max-width: 520px;
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.resumen {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 6px 12px;
+  margin: 0;
+
+  dt {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 500;
+  }
+}

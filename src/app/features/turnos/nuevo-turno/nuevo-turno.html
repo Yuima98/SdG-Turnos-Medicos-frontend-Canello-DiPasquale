@@ -1,0 +1,157 @@
+<app-estado-lista
+  [cargando]="opciones.cargando()"
+  [error]="opciones.error()"
+  (reintentar)="cargarOpciones()"
+>
+  <form [formGroup]="form">
+    <mat-stepper orientation="vertical" linear>
+      <mat-step label="Especialidad" [stepControl]="form.controls.idEspecialidad">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Especialidad</mat-label>
+          <mat-select formControlName="idEspecialidad">
+            @for (especialidad of opciones.datos().especialidades; track especialidad.id) {
+              <mat-option [value]="especialidad.id">{{ especialidad.descripcion }}</mat-option>
+            }
+          </mat-select>
+          <mat-error>Seleccioná una especialidad.</mat-error>
+        </mat-form-field>
+        <div class="acciones">
+          <button mat-flat-button matStepperNext type="button" [disabled]="form.controls.idEspecialidad.invalid">
+            Siguiente
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Sede" [stepControl]="form.controls.idSede">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Sede</mat-label>
+          <mat-select formControlName="idSede">
+            @for (sede of opciones.datos().sedes; track sede.id) {
+              <mat-option [value]="sede.id">{{ sede.nombre }}</mat-option>
+            }
+          </mat-select>
+          <mat-error>Seleccioná una sede.</mat-error>
+        </mat-form-field>
+        <div class="acciones">
+          <button mat-button matStepperPrevious type="button">Atrás</button>
+          <button mat-flat-button matStepperNext type="button" [disabled]="form.controls.idSede.invalid">
+            Siguiente
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Médico" [stepControl]="form.controls.idMedico">
+        <app-estado-lista
+          [cargando]="medicos.cargando()"
+          [error]="medicos.error()"
+          [vacio]="medicos.datos().length === 0"
+          mensajeVacio="No hay médicos con agenda para esa especialidad y sede."
+          (reintentar)="cargarMedicos()"
+        >
+          <mat-form-field appearance="outline" class="campo">
+            <mat-label>Médico</mat-label>
+            <mat-select formControlName="idMedico">
+              @for (medico of medicos.datos(); track medico.id) {
+                <mat-option [value]="medico.id">{{ medico.apellido }}, {{ medico.nombre }}</mat-option>
+              }
+            </mat-select>
+            <mat-error>Seleccioná un médico.</mat-error>
+          </mat-form-field>
+        </app-estado-lista>
+        <div class="acciones">
+          <button mat-button matStepperPrevious type="button">Atrás</button>
+          <button mat-flat-button matStepperNext type="button" [disabled]="form.controls.idMedico.invalid">
+            Siguiente
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Fecha" [stepControl]="form.controls.fecha">
+        <app-estado-lista
+          [cargando]="fechas.cargando()"
+          [error]="fechas.error()"
+          [vacio]="fechas.datos().length === 0"
+          mensajeVacio="El médico no tiene fechas disponibles."
+          (reintentar)="cargarFechas()"
+        >
+          <mat-form-field appearance="outline" class="campo">
+            <mat-label>Fecha</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [matDatepickerFilter]="filtroFechas()"
+              [min]="hoy"
+              formControlName="fecha"
+              placeholder="dd/mm/aaaa"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="picker" />
+            <mat-datepicker #picker />
+            <mat-error>Elegí una de las fechas disponibles.</mat-error>
+          </mat-form-field>
+        </app-estado-lista>
+        <div class="acciones">
+          <button mat-button matStepperPrevious type="button">Atrás</button>
+          <button mat-flat-button matStepperNext type="button" [disabled]="form.controls.fecha.invalid">
+            Siguiente
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Horario" [stepControl]="form.controls.horario">
+        <app-estado-lista
+          [cargando]="horarios.cargando()"
+          [error]="horarios.error()"
+          [vacio]="horarios.datos().length === 0"
+          mensajeVacio="No quedan horarios libres en esta fecha. Elegí otra."
+          (reintentar)="cargarHorarios()"
+        >
+          <mat-chip-listbox formControlName="horario" aria-label="Horarios disponibles">
+            @for (horario of horarios.datos(); track horario.hora) {
+              <mat-chip-option [value]="horario">{{ horario.hora }}</mat-chip-option>
+            }
+          </mat-chip-listbox>
+        </app-estado-lista>
+        <div class="acciones">
+          <button mat-button matStepperPrevious type="button">Atrás</button>
+          <button mat-flat-button matStepperNext type="button" [disabled]="form.controls.horario.invalid">
+            Siguiente
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Nota y confirmación">
+        <mat-form-field appearance="outline" class="campo campo-nota">
+          <mat-label>Nota para el médico</mat-label>
+          <textarea matInput formControlName="nota" rows="2" maxlength="255"></textarea>
+          <mat-error>La nota es obligatoria.</mat-error>
+        </mat-form-field>
+
+        <dl class="resumen">
+          <dt>Especialidad</dt>
+          <dd>{{ resumen().especialidad }}</dd>
+          <dt>Médico</dt>
+          <dd>{{ resumen().medico }}</dd>
+          <dt>Sede</dt>
+          <dd>{{ resumen().sede }}</dd>
+          <dt>Fecha</dt>
+          <dd>{{ resumen().fecha | date: 'dd/MM/yyyy' }}</dd>
+          <dt>Hora</dt>
+          <dd>{{ resumen().hora }}</dd>
+          <dt>Cobertura</dt>
+          <dd>{{ cobertura() }}</dd>
+        </dl>
+
+        <div class="acciones">
+          <button mat-button matStepperPrevious type="button">Atrás</button>
+          <button mat-flat-button type="button" [disabled]="enviando()" (click)="confirmar()">
+            @if (enviando()) {
+              <mat-spinner diameter="20" />
+            } @else {
+              Confirmar turno
+            }
+          </button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </form>
+</app-estado-lista>
