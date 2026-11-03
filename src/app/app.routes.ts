@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { Home } from './features/home/home';
 import { Login } from './features/auth/login/login';
 import { Registro } from './features/auth/registro/registro';
-import { EnConstruccion } from './features/en-construccion/en-construccion';
 import { invitadoGuard, rolGuard } from './core/guards/auth-guard';
 import { Catalogo } from './features/admin/catalogo/catalogo';
 import { Usuarios } from './features/admin/usuarios/usuarios';
@@ -15,6 +14,7 @@ import { AgendaOperador } from './features/operador/agenda-operador/agenda-opera
 import { AltaPaciente } from './features/operador/alta-paciente/alta-paciente';
 import { AsignarTurno } from './features/operador/asignar-turno/asignar-turno';
 import { SolicitarTurno } from './features/paciente/solicitar-turno/solicitar-turno';
+import { MisTurnos } from './features/paciente/mis-turnos/mis-turnos';
 import {
   CONFIG_COBERTURAS,
   CONFIG_ESPECIALIDADES,
@@ -25,7 +25,6 @@ export const routes: Routes = [
   { path: '', component: Home },
   { path: 'login', component: Login, canActivate: [invitadoGuard] },
   { path: 'registro', component: Registro, canActivate: [invitadoGuard] },
-  { path: 'en-construccion', component: EnConstruccion },
   {
     path: 'admin',
     canActivate: [rolGuard('admin')],
@@ -59,7 +58,10 @@ export const routes: Routes = [
   {
     path: 'paciente',
     canActivate: [rolGuard('paciente')],
-    children: [{ path: 'nuevo-turno', component: SolicitarTurno }],
+    children: [
+      { path: 'nuevo-turno', component: SolicitarTurno },
+      { path: 'mis-turnos', component: MisTurnos },
+    ],
   },
   { path: '**', redirectTo: '' },
 ];

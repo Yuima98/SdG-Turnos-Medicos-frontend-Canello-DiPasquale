@@ -1,0 +1,59 @@
+<section class="pagina">
+  <div class="pagina-encabezado">
+    <h1>Mis turnos</h1>
+    <a mat-flat-button routerLink="/paciente/nuevo-turno">Nuevo turno</a>
+  </div>
+
+  <app-estado-lista
+    [cargando]="lista.cargando()"
+    [error]="lista.error()"
+    [vacio]="turnos().length === 0"
+    mensajeVacio="Todavía no tenés turnos."
+    (reintentar)="cargar()"
+  >
+    <mat-accordion multi>
+      @for (turno of turnos(); track turno.id) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ turno.fecha | date: 'dd/MM/yyyy' }} — {{ turno.hora }}</mat-panel-title>
+            <mat-panel-description>
+              {{ turno.especialidad }}
+              <span class="estado-turno" [class]="turno.estado">{{ turno.estado }}</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <dl class="detalle">
+            <dt>Fecha</dt>
+            <dd>{{ turno.fecha | date: 'EEEE dd/MM/yyyy' }}, {{ turno.hora }} hs</dd>
+            <dt>Especialista</dt>
+            <dd>{{ turno.medico_apellido }}, {{ turno.medico_nombre }}</dd>
+            <dt>Especialidad</dt>
+            <dd>{{ turno.especialidad }}</dd>
+            <dt>Sede</dt>
+            <dd>{{ turno.sede }}</dd>
+            <dt>Nota</dt>
+            <dd>{{ turno.nota }}</dd>
+          </dl>
+
+          @if (turno.estado === 'atendido' && turno.diagnostico) {
+            <h3>Historial clínico</h3>
+            <dl class="detalle">
+              <dt>Diagnóstico</dt>
+              <dd>{{ turno.diagnostico }}</dd>
+              <dt>Tratamiento</dt>
+              <dd>{{ turno.tratamiento || '—' }}</dd>
+              <dt>Observaciones</dt>
+              <dd>{{ turno.observaciones || '—' }}</dd>
+            </dl>
+          }
+
+          @if (turno.estado === 'confirmado') {
+            <mat-action-row>
+              <button mat-stroked-button (click)="cancelar(turno)">Cancelar turno</button>
+            </mat-action-row>
+          }
+        </mat-expansion-panel>
+      }
+    </mat-accordion>
+  </app-estado-lista>
+</section>

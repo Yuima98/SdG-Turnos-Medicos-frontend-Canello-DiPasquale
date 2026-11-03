@@ -19,9 +19,9 @@ interface OpcionMenu {
 
 const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
   paciente: [
-    { etiqueta: 'Mis turnos', ruta: '/en-construccion' },
     { etiqueta: 'Nuevo turno', ruta: '/paciente/nuevo-turno' },
-    { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
+    { etiqueta: 'Mis turnos', ruta: '/paciente/mis-turnos' },
+    { etiqueta: 'Mis datos personales', ruta: '/paciente/mis-datos' },
   ],
   medico: [
     { etiqueta: 'Mi agenda', ruta: '/medico/agenda' },
@@ -40,7 +40,6 @@ const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
     { etiqueta: 'Coberturas', ruta: '/admin/coberturas' },
     { etiqueta: 'Auditoría', ruta: '/admin/auditoria' },
     { etiqueta: 'Reportes', ruta: '/admin/reportes' },
-    { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
   ],
 };
 
