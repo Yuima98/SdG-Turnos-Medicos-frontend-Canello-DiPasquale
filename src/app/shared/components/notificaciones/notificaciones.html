@@ -1,0 +1,43 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  (menuOpened)="servicio.refrescar()"
+  [attr.aria-label]="'Notificaciones, ' + servicio.noLeidas() + ' sin leer'"
+>
+  <mat-icon
+    [matBadge]="servicio.noLeidas()"
+    [matBadgeHidden]="servicio.noLeidas() === 0"
+    matBadgeColor="warn"
+    aria-hidden="false"
+  >
+    notifications
+  </mat-icon>
+</button>
+
+<mat-menu #menu="matMenu" class="menu-notificaciones" xPosition="before">
+  @for (notificacion of servicio.notificaciones(); track notificacion.id) {
+    <div
+      class="notificacion"
+      [class.no-leida]="!notificacion.leida"
+      (click)="$event.stopPropagation()"
+      (keydown)="$event.stopPropagation()"
+    >
+      <div class="notificacion-texto">
+        <span>{{ notificacion.mensaje }}</span>
+        <small>{{ notificacion.fecha | date: 'dd/MM/yyyy HH:mm' }}</small>
+      </div>
+      @if (!notificacion.leida) {
+        <button
+          mat-icon-button
+          matTooltip="Marcar como leída"
+          aria-label="Marcar como leída"
+          (click)="marcarLeida(notificacion.id)"
+        >
+          <mat-icon>done</mat-icon>
+        </button>
+      }
+    </div>
+  } @empty {
+    <p class="notificacion-vacia">No tenés notificaciones.</p>
+  }
+</mat-menu>

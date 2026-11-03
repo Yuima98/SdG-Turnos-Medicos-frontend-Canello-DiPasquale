@@ -11,9 +11,7 @@
   <span class="header-spacer"></span>
 
   @if (auth.estaLogueado()) {
-    <button mat-icon-button aria-label="Notificaciones" disabled>
-      <mat-icon>notifications</mat-icon>
-    </button>
+    <app-notificaciones />
     <span class="header-usuario">{{ auth.usuario()?.nombre }} {{ auth.usuario()?.apellido }}</span>
     <button mat-icon-button [matTooltip]="'Tipo de usuario: ' + etiquetaRol()" aria-label="Tipo de usuario">
       <mat-icon>info</mat-icon>
