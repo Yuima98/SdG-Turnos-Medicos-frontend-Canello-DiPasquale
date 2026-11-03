@@ -91,6 +91,12 @@ body {
   }
 }
 
+.formulario-error {
+  margin: -4px 0 8px 16px;
+  color: var(--mat-sys-error);
+  font: var(--mat-sys-body-small);
+}
+
 .estado-turno {
   display: inline-block;
   padding: 2px 10px;

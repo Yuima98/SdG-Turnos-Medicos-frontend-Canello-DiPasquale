@@ -1,0 +1,43 @@
+<div class="filtros">
+  <button mat-flat-button type="button" (click)="abrirFormulario()">
+    <mat-icon>add</mat-icon>
+    Agregar rango horario
+  </button>
+</div>
+
+<app-estado-lista
+  [cargando]="lista.cargando()"
+  [error]="lista.error()"
+  [vacio]="lista.datos().length === 0"
+  mensajeVacio="No hay rangos horarios cargados para esta fecha."
+  (reintentar)="cargar()"
+>
+  <table mat-table [dataSource]="lista.datos()" class="tabla">
+    <ng-container matColumnDef="horario">
+      <th mat-header-cell *matHeaderCellDef>Horario</th>
+      <td mat-cell *matCellDef="let rango">{{ rango.hora_entrada }} a {{ rango.hora_salida }}</td>
+    </ng-container>
+    <ng-container matColumnDef="especialidad">
+      <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+      <td mat-cell *matCellDef="let rango">{{ rango.especialidad }}</td>
+    </ng-container>
+    <ng-container matColumnDef="sede">
+      <th mat-header-cell *matHeaderCellDef>Sede</th>
+      <td mat-cell *matCellDef="let rango">{{ rango.sede }}</td>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let rango">
+        <button mat-icon-button type="button" matTooltip="Modificar" aria-label="Modificar" (click)="abrirFormulario(rango)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button type="button" matTooltip="Eliminar" aria-label="Eliminar" (click)="eliminar(rango)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+  </table>
+</app-estado-lista>

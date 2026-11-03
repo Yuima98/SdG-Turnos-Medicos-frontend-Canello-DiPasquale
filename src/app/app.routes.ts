@@ -8,6 +8,7 @@ import { Catalogo } from './features/admin/catalogo/catalogo';
 import { Usuarios } from './features/admin/usuarios/usuarios';
 import { Auditoria } from './features/admin/auditoria/auditoria';
 import { Reportes } from './features/admin/reportes/reportes';
+import { MiAgenda } from './features/medico/mi-agenda/mi-agenda';
 import {
   CONFIG_COBERTURAS,
   CONFIG_ESPECIALIDADES,
@@ -30,6 +31,11 @@ export const routes: Routes = [
       { path: 'auditoria', component: Auditoria },
       { path: 'reportes', component: Reportes },
     ],
+  },
+  {
+    path: 'medico',
+    canActivate: [rolGuard('medico')],
+    children: [{ path: 'agenda', component: MiAgenda }],
   },
   { path: '**', redirectTo: '' },
 ];

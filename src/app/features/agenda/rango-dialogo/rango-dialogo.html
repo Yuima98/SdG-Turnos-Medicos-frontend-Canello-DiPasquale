@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>{{ datos.rango ? 'Modificar rango horario' : 'Nuevo rango horario' }}</h2>
+<form [formGroup]="form" (ngSubmit)="guardar()">
+  <mat-dialog-content>
+    <div class="formulario">
+      @if (datos.idMedico === null) {
+        <mat-form-field appearance="outline">
+          <mat-label>Médico</mat-label>
+          <mat-select formControlName="idMedico">
+            @for (medico of medicos(); track medico.id) {
+              <mat-option [value]="medico.id">{{ medico.apellido }}, {{ medico.nombre }}</mat-option>
+            }
+          </mat-select>
+          <mat-error>Seleccioná un médico.</mat-error>
+        </mat-form-field>
+      }
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="fecha"
+          [min]="datos.rango ? null : hoy"
+          placeholder="dd/mm/aaaa"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+        <mat-error>Ingresá una fecha válida, de hoy en adelante.</mat-error>
+      </mat-form-field>
+
+      <div class="formulario-fila">
+        <mat-form-field appearance="outline">
+          <mat-label>Hora de entrada</mat-label>
+          <input matInput type="time" formControlName="horaEntrada" />
+          <mat-error>La hora de entrada es obligatoria.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Hora de salida</mat-label>
+          <input matInput type="time" formControlName="horaSalida" />
+          <mat-error>La hora de salida es obligatoria.</mat-error>
+        </mat-form-field>
+      </div>
+      @if (form.hasError('salidaAnterior')) {
+        <p class="formulario-error" role="alert">La hora de salida debe ser posterior a la de entrada.</p>
+      }
+
+      <mat-form-field appearance="outline">
+        <mat-label>Especialidad</mat-label>
+        <mat-select formControlName="idEspecialidad">
+          @for (especialidad of especialidades(); track especialidad.id) {
+            <mat-option [value]="especialidad.id">{{ especialidad.descripcion }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>Seleccioná una especialidad.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Sede</mat-label>
+        <mat-select formControlName="idSede">
+          @for (sede of sedes(); track sede.id) {
+            <mat-option [value]="sede.id">{{ sede.nombre }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>Seleccioná una sede.</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+    <button mat-flat-button type="submit" [disabled]="guardando()">Guardar</button>
+  </mat-dialog-actions>
+</form>
