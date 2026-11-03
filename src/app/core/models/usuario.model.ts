@@ -14,3 +14,10 @@ export interface Usuario {
   id_cobertura: number | null;
   cobertura: string | null;
 }
+
+export const ETIQUETA_ROL: Record<Rol, string> = {
+  paciente: 'Paciente',
+  medico: 'Médico',
+  operador: 'Operador',
+  admin: 'Administrador',
+};

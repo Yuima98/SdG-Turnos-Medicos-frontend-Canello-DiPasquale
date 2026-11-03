@@ -9,7 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter } from 'rxjs';
 import { Auth } from '../../../core/services/auth';
 import { NotificacionService } from '../../../core/services/notificacion';
-import { Rol } from '../../../core/models/usuario.model';
+import { ETIQUETA_ROL, Rol } from '../../../core/models/usuario.model';
 import { Notificaciones } from '../notificaciones/notificaciones';
 
 interface OpcionMenu {
@@ -34,20 +34,13 @@ const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
     { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
   ],
   admin: [
-    { etiqueta: 'Usuarios', ruta: '/en-construccion' },
+    { etiqueta: 'Usuarios', ruta: '/admin/usuarios' },
     { etiqueta: 'Sedes', ruta: '/admin/sedes' },
     { etiqueta: 'Especialidades', ruta: '/admin/especialidades' },
     { etiqueta: 'Coberturas', ruta: '/admin/coberturas' },
     { etiqueta: 'Reportes', ruta: '/en-construccion' },
     { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
   ],
-};
-
-const ETIQUETA_ROL: Record<Rol, string> = {
-  paciente: 'Paciente',
-  medico: 'Médico',
-  operador: 'Operador',
-  admin: 'Administrador',
 };
 
 @Component({
