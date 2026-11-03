@@ -1,4 +1,4 @@
-export interface Cobertura {
+export type Cobertura = {
   id: number;
   nombre: string;
-}
+};
