@@ -1,0 +1,24 @@
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.indicador mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.indicador-titulo {
+  font: var(--mat-sys-title-medium);
+}
+
+.indicador-valor {
+  font: var(--mat-sys-display-small);
+}
+
+.indicador-detalle {
+  color: var(--mat-sys-on-surface-variant);
+}

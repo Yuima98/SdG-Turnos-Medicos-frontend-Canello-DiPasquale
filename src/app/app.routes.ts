@@ -7,6 +7,7 @@ import { invitadoGuard, rolGuard } from './core/guards/auth-guard';
 import { Catalogo } from './features/admin/catalogo/catalogo';
 import { Usuarios } from './features/admin/usuarios/usuarios';
 import { Auditoria } from './features/admin/auditoria/auditoria';
+import { Reportes } from './features/admin/reportes/reportes';
 import {
   CONFIG_COBERTURAS,
   CONFIG_ESPECIALIDADES,
@@ -27,6 +28,7 @@ export const routes: Routes = [
       { path: 'coberturas', component: Catalogo, data: { config: CONFIG_COBERTURAS } },
       { path: 'usuarios', component: Usuarios },
       { path: 'auditoria', component: Auditoria },
+      { path: 'reportes', component: Reportes },
     ],
   },
   { path: '**', redirectTo: '' },
