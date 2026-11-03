@@ -71,6 +71,10 @@ body {
 
 .tabla {
   width: 100%;
+
+  .mat-mdc-icon-button {
+    vertical-align: middle;
+  }
 }
 
 .formulario {
