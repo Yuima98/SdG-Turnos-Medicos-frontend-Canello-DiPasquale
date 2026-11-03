@@ -15,6 +15,7 @@ import { AltaPaciente } from './features/operador/alta-paciente/alta-paciente';
 import { AsignarTurno } from './features/operador/asignar-turno/asignar-turno';
 import { SolicitarTurno } from './features/paciente/solicitar-turno/solicitar-turno';
 import { MisTurnos } from './features/paciente/mis-turnos/mis-turnos';
+import { MisDatos } from './features/paciente/mis-datos/mis-datos';
 import {
   CONFIG_COBERTURAS,
   CONFIG_ESPECIALIDADES,
@@ -61,6 +62,7 @@ export const routes: Routes = [
     children: [
       { path: 'nuevo-turno', component: SolicitarTurno },
       { path: 'mis-turnos', component: MisTurnos },
+      { path: 'mis-datos', component: MisDatos },
     ],
   },
   { path: '**', redirectTo: '' },
