@@ -1,0 +1,19 @@
+.paciente-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  button {
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+}
+
+.paciente-form-fila {
+  display: flex;
+  gap: 12px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}

@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -7,8 +6,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Auth } from '../../../core/services/auth';
+import { Avisos } from '../../../core/services/avisos';
+import { PATRON_DNI } from '../../../core/utils/validaciones';
 
 @Component({
   selector: 'app-login',
@@ -28,12 +28,12 @@ export class Login {
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly avisos = inject(Avisos);
 
   protected readonly enviando = signal(false);
 
   protected readonly form = this.fb.nonNullable.group({
-    dni: ['', [Validators.required, Validators.pattern(/^\d{7,8}$/)]],
+    dni: ['', [Validators.required, Validators.pattern(PATRON_DNI)]],
     password: ['', Validators.required],
   });
 
@@ -49,10 +49,9 @@ export class Login {
         this.enviando.set(false);
         this.router.navigate(['/']);
       },
-      error: (error: HttpErrorResponse) => {
+      error: (error: unknown) => {
         this.enviando.set(false);
-        const mensaje = error.error?.message ?? 'DNI o contraseña incorrectos.';
-        this.snackBar.open(mensaje, 'Cerrar', { duration: 5000 });
+        this.avisos.error(error, 'No se pudo iniciar sesión.');
       },
     });
   }

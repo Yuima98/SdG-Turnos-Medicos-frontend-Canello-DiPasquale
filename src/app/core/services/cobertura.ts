@@ -1,16 +1,28 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Api } from './api';
+import { IdCreado } from '../models/api.model';
 import { Cobertura } from '../models/cobertura.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoberturaService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly api = inject(Api);
 
   listar(): Observable<Cobertura[]> {
-    return this.http.get<Cobertura[]>(`${environment.apiUrl}/coberturas`);
+    return this.api.get<Cobertura[]>('/coberturas');
+  }
+
+  crear(datos: Omit<Cobertura, 'id'>): Observable<IdCreado> {
+    return this.api.post<IdCreado>('/coberturas', datos);
+  }
+
+  modificar(id: number, datos: Omit<Cobertura, 'id'>): Observable<null> {
+    return this.api.put(`/coberturas/${id}`, datos);
+  }
+
+  eliminar(id: number): Observable<null> {
+    return this.api.delete(`/coberturas/${id}`);
   }
 }

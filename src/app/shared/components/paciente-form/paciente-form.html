@@ -1,0 +1,99 @@
+<form [formGroup]="form" (ngSubmit)="enviar()" class="paciente-form">
+  <div class="paciente-form-fila">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" maxlength="30" />
+      @if (form.controls.nombre.hasError('required')) {
+        <mat-error>El nombre es obligatorio.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido" maxlength="30" />
+      @if (form.controls.apellido.hasError('required')) {
+        <mat-error>El apellido es obligatorio.</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <div class="paciente-form-fila">
+    <mat-form-field appearance="outline">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" inputmode="numeric" maxlength="8" />
+      @if (form.controls.dni.hasError('required')) {
+        <mat-error>El DNI es obligatorio.</mat-error>
+      } @else if (form.controls.dni.hasError('pattern')) {
+        <mat-error>Ingresá un DNI válido (solo números).</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" inputmode="numeric" maxlength="10" />
+      @if (form.controls.telefono.hasError('required')) {
+        <mat-error>El teléfono es obligatorio.</mat-error>
+      } @else if (form.controls.telefono.hasError('pattern')) {
+        <mat-error>Ingresá entre 6 y 10 números.</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" autocomplete="email" maxlength="30" />
+    @if (form.controls.email.hasError('required')) {
+      <mat-error>El email es obligatorio.</mat-error>
+    } @else if (form.controls.email.hasError('email')) {
+      <mat-error>Ingresá un email válido.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Contraseña</mat-label>
+    <input matInput type="password" formControlName="password" autocomplete="new-password" />
+    @if (form.controls.password.hasError('required')) {
+      <mat-error>La contraseña es obligatoria.</mat-error>
+    } @else if (form.controls.password.hasError('minlength')) {
+      <mat-error>Debe tener al menos 6 caracteres.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha de nacimiento</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="fechaNacimiento"
+      [max]="maxFechaNacimiento"
+      placeholder="dd/mm/aaaa"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker" />
+    <mat-datepicker #picker startView="multi-year" />
+    @if (form.controls.fechaNacimiento.hasError('matDatepickerMax')) {
+      <mat-error>La fecha no puede ser futura.</mat-error>
+    } @else if (form.controls.fechaNacimiento.invalid) {
+      <mat-error>Ingresá una fecha de nacimiento válida.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Cobertura</mat-label>
+    <mat-select formControlName="coberturaId">
+      @for (cobertura of coberturas(); track cobertura.id) {
+        <mat-option [value]="cobertura.id">{{ cobertura.nombre }}</mat-option>
+      }
+    </mat-select>
+    @if (form.controls.coberturaId.hasError('required')) {
+      <mat-error>Seleccioná una cobertura.</mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="enviando()">
+    @if (enviando()) {
+      <mat-spinner diameter="20" />
+    } @else {
+      {{ textoBoton() }}
+    }
+  </button>
+</form>

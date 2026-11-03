@@ -1,5 +1,3 @@
-import { Cobertura } from './cobertura.model';
-
 export type Rol = 'admin' | 'medico' | 'operador' | 'paciente';
 
 export interface Usuario {
@@ -8,7 +6,11 @@ export interface Usuario {
   apellido: string;
   dni: string;
   email: string;
-  fechaNacimiento: string;
-  cobertura?: Cobertura;
+  telefono: string;
+  fecha_nacimiento: string;
   rol: Rol;
+  id_sede: number | null;
+  sede: string | null;
+  id_cobertura: number | null;
+  cobertura: string | null;
 }

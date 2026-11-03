@@ -1,0 +1,18 @@
+@if (cargando()) {
+  <div class="estado" role="status" aria-label="Cargando">
+    <mat-spinner diameter="40" />
+  </div>
+} @else if (error()) {
+  <div class="estado" role="alert">
+    <mat-icon aria-hidden="true">error_outline</mat-icon>
+    <p>{{ error() }}</p>
+    <button mat-stroked-button type="button" (click)="reintentar.emit()">Reintentar</button>
+  </div>
+} @else if (vacio()) {
+  <div class="estado">
+    <mat-icon aria-hidden="true">inbox</mat-icon>
+    <p>{{ mensajeVacio() }}</p>
+  </div>
+} @else {
+  <ng-content />
+}

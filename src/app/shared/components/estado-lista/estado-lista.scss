@@ -1,0 +1,13 @@
+.estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 16px;
+  color: var(--mat-sys-on-surface-variant);
+
+  p {
+    margin: 0;
+    text-align: center;
+  }
+}
