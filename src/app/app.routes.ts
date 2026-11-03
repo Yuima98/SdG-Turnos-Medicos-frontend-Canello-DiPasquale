@@ -12,6 +12,8 @@ import { MiAgenda } from './features/medico/mi-agenda/mi-agenda';
 import { TurnosProgramados } from './features/medico/turnos-programados/turnos-programados';
 import { Historial } from './features/medico/historial/historial';
 import { AgendaOperador } from './features/operador/agenda-operador/agenda-operador';
+import { AltaPaciente } from './features/operador/alta-paciente/alta-paciente';
+import { AsignarTurno } from './features/operador/asignar-turno/asignar-turno';
 import { SolicitarTurno } from './features/paciente/solicitar-turno/solicitar-turno';
 import {
   CONFIG_COBERTURAS,
@@ -48,7 +50,11 @@ export const routes: Routes = [
   {
     path: 'operador',
     canActivate: [rolGuard('operador')],
-    children: [{ path: 'agenda', component: AgendaOperador }],
+    children: [
+      { path: 'agenda', component: AgendaOperador },
+      { path: 'alta-paciente', component: AltaPaciente },
+      { path: 'asignar-turno', component: AsignarTurno },
+    ],
   },
   {
     path: 'paciente',

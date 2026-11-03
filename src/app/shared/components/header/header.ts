@@ -30,8 +30,8 @@ const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
   ],
   operador: [
     { etiqueta: 'Agenda y turnos', ruta: '/operador/agenda' },
-    { etiqueta: 'Pacientes', ruta: '/en-construccion' },
-    { etiqueta: 'Mi perfil', ruta: '/en-construccion' },
+    { etiqueta: 'Asignar turno', ruta: '/operador/asignar-turno' },
+    { etiqueta: 'Alta de paciente', ruta: '/operador/alta-paciente' },
   ],
   admin: [
     { etiqueta: 'Usuarios', ruta: '/admin/usuarios' },
