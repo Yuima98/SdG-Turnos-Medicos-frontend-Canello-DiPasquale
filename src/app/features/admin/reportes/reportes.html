@@ -23,7 +23,7 @@
   >
     @if (reportes.datos(); as datos) {
       <div class="tablero">
-        <mat-card appearance="outlined" class="indicador">
+        <mat-card class="indicador">
           <mat-card-content>
             <span class="indicador-titulo">Tasa de cancelación</span>
             <strong class="indicador-valor">{{ datos.cancelacion.tasa_cancelacion | number: '1.0-2' }} %</strong>
@@ -33,7 +33,7 @@
           </mat-card-content>
         </mat-card>
 
-        <mat-card appearance="outlined">
+        <mat-card appearance="outlined" class="tarjeta tono-azul">
           <mat-card-header><mat-card-title>Turnos por especialidad</mat-card-title></mat-card-header>
           <mat-card-content>
             <app-grafico-barras
@@ -44,18 +44,19 @@
           </mat-card-content>
         </mat-card>
 
-        <mat-card appearance="outlined">
+        <mat-card appearance="outlined" class="tarjeta tono-verde">
           <mat-card-header><mat-card-title>Turnos por sede</mat-card-title></mat-card-header>
           <mat-card-content>
             <app-grafico-barras
               [etiquetas]="sedes().etiquetas"
               [valores]="sedes().valores"
+              color="#00897b"
               descripcion="Gráfico de barras con la cantidad de turnos por sede"
             />
           </mat-card-content>
         </mat-card>
 
-        <mat-card appearance="outlined">
+        <mat-card appearance="outlined" class="tarjeta tono-violeta">
           <mat-card-header><mat-card-title>Médicos por turnos atendidos</mat-card-title></mat-card-header>
           <mat-card-content>
             <table mat-table [dataSource]="datos.ranking" class="tabla">

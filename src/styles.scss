@@ -5,6 +5,12 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+:root {
+  --borde-suave: #d6e4f2;
+  --mat-card-elevated-container-color: #ffffff;
+  --mat-card-outlined-container-color: #ffffff;
+}
+
 html {
   height: 100%;
   @include mat.theme(
@@ -28,7 +34,11 @@ body {
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
   // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
+  background-color: #f3f8fd;
+  background-image:
+    radial-gradient(circle at 8% 12%, #e2f4ef 0, transparent 34%),
+    radial-gradient(circle at 92% 20%, #e6ecfb 0, transparent 38%);
+  background-attachment: fixed;
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 
@@ -52,8 +62,20 @@ body {
   margin-bottom: 16px;
 
   h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin: 0;
     font: var(--mat-sys-headline-small);
+    color: #0b4f9e;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 30px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, #0b4f9e, #12a594);
+    }
   }
 }
 
@@ -70,7 +92,42 @@ body {
 }
 
 .tabla {
+  --mat-table-background-color: #ffffff;
+  --mat-table-header-headline-color: #0b4f9e;
+
   width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--borde-suave);
+  border-radius: 12px;
+
+  .mat-mdc-header-row {
+    --mat-table-background-color: #e6f0fb;
+
+    background: #e6f0fb;
+  }
+
+  .mat-mdc-header-cell {
+    background: transparent;
+  }
+
+  [aria-label='Modificar'],
+  [aria-label='Editar'],
+  [aria-label='Editar agenda'] {
+    --mat-icon-button-icon-color: #1f6fd1;
+  }
+
+  [aria-label='Eliminar'],
+  [aria-label='Cancelar turno'] {
+    --mat-icon-button-icon-color: #c2334a;
+  }
+
+  [aria-label='Ver turnos confirmados'] {
+    --mat-icon-button-icon-color: #00796b;
+  }
+
+  tbody tr:hover td {
+    background: #f3f8fd;
+  }
 
   .mat-mdc-icon-button {
     vertical-align: middle;
@@ -160,4 +217,39 @@ body {
   margin: 0;
   padding: 16px;
   text-align: center;
+}
+
+// Cada tono define un color y su fondo suave; se usa en accesos, tarjetas y menú
+.tono-azul {
+  --tono: #1f6fd1;
+  --tono-suave: #e1edfb;
+}
+
+.tono-verde {
+  --tono: #00796b;
+  --tono-suave: #d9f2ec;
+}
+
+.tono-naranja {
+  --tono: #c25a0c;
+  --tono-suave: #fdebd9;
+}
+
+.tono-violeta {
+  --tono: #6a45c9;
+  --tono-suave: #ece6fb;
+}
+
+.tono-rosa {
+  --tono: #c22f6b;
+  --tono-suave: #fbe3ed;
+}
+
+.tono-celeste {
+  --tono: #0a7ea4;
+  --tono-suave: #dcf1f8;
+}
+
+.mat-mdc-menu-content .mat-mdc-menu-item .icono-tono {
+  color: var(--tono);
 }

@@ -5,43 +5,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter } from 'rxjs';
 import { Auth } from '../../../core/services/auth';
 import { NotificacionService } from '../../../core/services/notificacion';
-import { ETIQUETA_ROL, Rol } from '../../../core/models/usuario.model';
+import { ETIQUETA_ROL } from '../../../core/models/usuario.model';
+import { MENU_POR_ROL } from '../../menu-por-rol';
+import { Logo } from '../logo/logo';
 import { Notificaciones } from '../notificaciones/notificaciones';
-
-interface OpcionMenu {
-  etiqueta: string;
-  ruta: string;
-}
-
-const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
-  paciente: [
-    { etiqueta: 'Nuevo turno', ruta: '/paciente/nuevo-turno' },
-    { etiqueta: 'Mis turnos', ruta: '/paciente/mis-turnos' },
-    { etiqueta: 'Mis datos personales', ruta: '/paciente/mis-datos' },
-  ],
-  medico: [
-    { etiqueta: 'Mi agenda', ruta: '/medico/agenda' },
-    { etiqueta: 'Turnos programados', ruta: '/medico/turnos' },
-    { etiqueta: 'Historial clínico', ruta: '/medico/historial' },
-  ],
-  operador: [
-    { etiqueta: 'Agenda y turnos', ruta: '/operador/agenda' },
-    { etiqueta: 'Asignar turno', ruta: '/operador/asignar-turno' },
-    { etiqueta: 'Alta de paciente', ruta: '/operador/alta-paciente' },
-  ],
-  admin: [
-    { etiqueta: 'Usuarios', ruta: '/admin/usuarios' },
-    { etiqueta: 'Sedes', ruta: '/admin/sedes' },
-    { etiqueta: 'Especialidades', ruta: '/admin/especialidades' },
-    { etiqueta: 'Coberturas', ruta: '/admin/coberturas' },
-    { etiqueta: 'Auditoría', ruta: '/admin/auditoria' },
-    { etiqueta: 'Reportes', ruta: '/admin/reportes' },
-  ],
-};
 
 @Component({
   selector: 'app-header',
@@ -51,7 +21,7 @@ const MENU_POR_ROL: Record<Rol, OpcionMenu[]> = {
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatTooltipModule,
+    Logo,
     Notificaciones,
   ],
   templateUrl: './header.html',

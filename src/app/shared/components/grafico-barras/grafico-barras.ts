@@ -10,7 +10,6 @@ import {
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip);
 
-const COLOR_BARRA = '#005cbb';
 const COLOR_TEXTO = '#44474e';
 const COLOR_GRILLA = '#e1e2e8';
 const ALTO_POR_BARRA_PX = 44;
@@ -34,6 +33,7 @@ export class GraficoBarras implements OnDestroy {
   readonly etiquetas = input.required<string[]>();
   readonly valores = input.required<number[]>();
   readonly descripcion = input.required<string>();
+  readonly color = input('#1f6fd1');
 
   protected readonly alturaBarra = ALTO_POR_BARRA_PX;
   protected readonly alturaEje = ALTO_EJE_PX;
@@ -45,6 +45,7 @@ export class GraficoBarras implements OnDestroy {
     effect(() => {
       const etiquetas = this.etiquetas();
       const valores = this.valores();
+      const color = this.color();
       const canvas = this.lienzo().nativeElement;
 
       this.grafico?.destroy();
@@ -55,7 +56,7 @@ export class GraficoBarras implements OnDestroy {
           datasets: [
             {
               data: valores,
-              backgroundColor: COLOR_BARRA,
+              backgroundColor: color,
               borderRadius: 4,
               borderSkipped: 'start',
               barThickness: 20,

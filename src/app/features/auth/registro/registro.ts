@@ -5,10 +5,11 @@ import { RegistroRequest } from '../../../core/models/auth.model';
 import { Auth } from '../../../core/services/auth';
 import { Avisos } from '../../../core/services/avisos';
 import { PacienteForm } from '../../../shared/components/paciente-form/paciente-form';
+import { PanelAcceso } from '../../../shared/components/panel-acceso/panel-acceso';
 
 @Component({
   selector: 'app-registro',
-  imports: [RouterLink, MatCardModule, PacienteForm],
+  imports: [RouterLink, MatCardModule, PacienteForm, PanelAcceso],
   templateUrl: './registro.html',
   styleUrl: './registro.scss',
 })

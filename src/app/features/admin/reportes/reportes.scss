@@ -5,10 +5,24 @@
   margin-top: 8px;
 }
 
-.indicador mat-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.tarjeta {
+  border-top: 5px solid var(--tono);
+
+  &.tono-violeta {
+    grid-column: 1 / -1;
+  }
+}
+
+.indicador {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #b4304a, #d9622b);
+  color: #ffffff;
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 }
 
 .indicador-titulo {
@@ -16,9 +30,5 @@
 }
 
 .indicador-valor {
-  font: var(--mat-sys-display-small);
-}
-
-.indicador-detalle {
-  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-display-medium);
 }

@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Auth } from '../../../core/services/auth';
 import { Avisos } from '../../../core/services/avisos';
 import { PATRON_DNI } from '../../../core/utils/validaciones';
+import { PanelAcceso } from '../../../shared/components/panel-acceso/panel-acceso';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ import { PATRON_DNI } from '../../../core/utils/validaciones';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    PanelAcceso,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',

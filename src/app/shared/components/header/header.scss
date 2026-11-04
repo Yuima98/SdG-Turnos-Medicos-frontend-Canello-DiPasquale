@@ -1,7 +1,20 @@
+.header {
+  --mat-icon-button-icon-color: #ffffff;
+  --mat-toolbar-container-text-color: #ffffff;
+
+  position: relative;
+  background: linear-gradient(100deg, #0b4f9e 0%, #0b6f8f 55%, #0b8074 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgb(11 79 158 / 30%);
+}
+
 .header-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin-left: 8px;
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: 1.15rem;
+  font-weight: 600;
   text-decoration: none;
   color: inherit;
 }
@@ -11,5 +24,17 @@
 }
 
 .header-usuario {
-  margin-right: 4px;
+  margin: 0 8px 0 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.header-rol {
+  margin-right: 8px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 20%);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 20px;
 }
