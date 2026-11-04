@@ -14,7 +14,7 @@ import { Component, input } from '@angular/core';
       flex-direction: column;
       justify-content: center;
       width: 380px;
-      padding: 28px;
+      padding: 20px;
       border-radius: 18px;
       background: linear-gradient(150deg, #0b4f9e, #0b8074);
       color: #ffffff;
@@ -22,13 +22,14 @@ import { Component, input } from '@angular/core';
 
     img {
       width: 100%;
-      height: auto;
+      max-height: 32vh;
+      object-fit: contain;
       border-radius: 14px;
       background: #ffffff;
     }
 
     h2 {
-      margin: 20px 0 6px;
+      margin: 12px 0 4px;
       font: var(--mat-sys-title-large);
     }
 
