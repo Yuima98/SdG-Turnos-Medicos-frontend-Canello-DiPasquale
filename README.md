@@ -30,7 +30,7 @@ mysql -u root -p clinica_bdd < datos_demo.sql
 ```
 
 - `clinica_bdd.sql` crea las tablas. Si ya tenían la base de una entrega anterior hay que recrearla, porque cambiaron los tipos de los ids y de la nota del turno.
-- `datos_demo.sql` carga los datos de prueba: tres sedes, cuatro médicos entre los que Ana Lopez atiende en dos sedes, y turnos confirmados, cancelados y atendidos. Las fechas son relativas al día en que se ejecuta, así que conviene correrlo de nuevo antes de la defensa. Se puede repetir las veces que haga falta.
+- `datos_demo.sql` carga los datos de prueba: tres sedes, tres médicos entre los que Ana Lopez atiende en dos sedes, y turnos confirmados, cancelados y atendidos. Las fechas son relativas al día en que se ejecuta, así que conviene correrlo de nuevo antes de la defensa. Se puede repetir las veces que haga falta.
 
 En XAMPP, `mysql` está en `C:\xampp\mysql\bin\mysql.exe` y el usuario `root` no tiene contraseña por defecto (en ese caso, sacar el `-p`).
 
