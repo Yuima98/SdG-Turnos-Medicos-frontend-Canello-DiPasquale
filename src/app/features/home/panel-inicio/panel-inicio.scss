@@ -1,0 +1,135 @@
+.fecha-hoy::first-letter {
+  text-transform: uppercase;
+}
+
+.columnas {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(330px, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.tarjeta {
+  box-shadow: var(--sdg-sombra-1);
+}
+
+.tarjeta-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--sdg-borde);
+
+  h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--sdg-petroleo-800);
+  }
+
+  a {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.actividad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--sdg-borde);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.actividad-icono {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e9eef1;
+  color: var(--sdg-texto-secundario);
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.actividad-texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+
+  strong {
+    font-weight: 600;
+  }
+
+  small {
+    overflow: hidden;
+    color: var(--sdg-texto-secundario);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.actividad-momento {
+  flex: none;
+  min-width: 64px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--sdg-texto-secundario);
+}
+
+.actividad-vacia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 16px;
+  color: var(--sdg-texto-secundario);
+
+  p {
+    margin: 0;
+  }
+}
+
+.accesos {
+  padding: 4px 8px;
+}
+
+@media (max-width: 1099.98px) {
+  .columnas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 599.98px) {
+  .actividad {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
+  .actividad-texto {
+    flex-basis: calc(100% - 48px);
+  }
+
+  .actividad-momento {
+    min-width: 0;
+    margin-left: auto;
+  }
+}

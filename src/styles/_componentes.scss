@@ -1,0 +1,122 @@
+// Pantallas de acceso: login y registro comparten la misma composición
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: clamp(16px, 4vh, 40px) var(--sdg-gutter);
+}
+
+.auth-marco {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  width: 100%;
+  max-width: 920px;
+  overflow: hidden;
+  border: 1px solid var(--sdg-borde);
+  border-radius: var(--sdg-radio-l);
+  background: var(--sdg-superficie);
+  box-shadow: var(--sdg-sombra-2);
+}
+
+.auth-marco-amplio {
+  max-width: 1080px;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+}
+
+.auth-cuerpo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+
+  h1 {
+    margin: 0 0 4px;
+    font: 600 1.5rem / 2rem var(--mat-sys-body-medium-font);
+    color: var(--sdg-petroleo-800);
+  }
+
+  > p {
+    margin: 0 0 20px;
+    color: var(--sdg-texto-secundario);
+  }
+}
+
+.auth-pie {
+  display: flex;
+  gap: 6px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sdg-borde);
+  color: var(--sdg-texto-secundario);
+
+  a {
+    font-weight: 600;
+    color: var(--sdg-azul-600);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .auth-marco,
+  .auth-marco-amplio {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .auth-cuerpo {
+    padding: 24px 20px;
+  }
+}
+
+// El menú de notificaciones se dibuja fuera del header, en el overlay de Material
+.mat-mdc-menu-panel.menu-notificaciones {
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  max-height: 440px;
+}
+
+.notificacion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--sdg-borde);
+
+  &.no-leida {
+    background: var(--sdg-azul-100);
+    font-weight: 500;
+  }
+}
+
+.notificacion-texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+
+  small {
+    font-weight: 400;
+    color: var(--sdg-texto-secundario);
+  }
+}
+
+.notificacion-vacia {
+  margin: 0;
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--sdg-texto-secundario);
+}
+
+// Encabezado del menú de usuario
+.menu-usuario-datos {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px 12px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--sdg-borde);
+
+  strong {
+    font-weight: 600;
+  }
+
+  small {
+    color: var(--sdg-texto-secundario);
+  }
+}

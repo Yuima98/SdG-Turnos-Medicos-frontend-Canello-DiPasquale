@@ -1,0 +1,52 @@
+<a routerLink="/" class="sidebar-marca" (click)="navegacion.emit()">
+  <app-logo />
+  <span>
+    <strong>Clínica Virtual</strong>
+    <small>Gestión de turnos médicos</small>
+  </span>
+</a>
+
+<nav class="sidebar-nav" aria-label="Navegación principal">
+  <mat-nav-list>
+    <a
+      mat-list-item
+      routerLink="/"
+      routerLinkActive
+      #inicio="routerLinkActive"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ariaCurrentWhenActive="page"
+      [activated]="inicio.isActive"
+      (click)="navegacion.emit()"
+    >
+      <mat-icon matListItemIcon aria-hidden="true">dashboard</mat-icon>
+      <span matListItemTitle>Inicio</span>
+    </a>
+
+    @for (grupo of grupos(); track grupo.titulo) {
+      @if (grupo.titulo) {
+        <p class="sidebar-grupo">{{ grupo.titulo }}</p>
+      }
+      @for (opcion of grupo.opciones; track opcion.ruta) {
+        <a
+          mat-list-item
+          [routerLink]="opcion.ruta"
+          routerLinkActive
+          #enlace="routerLinkActive"
+          ariaCurrentWhenActive="page"
+          [activated]="enlace.isActive"
+          (click)="navegacion.emit()"
+        >
+          <mat-icon matListItemIcon aria-hidden="true">{{ opcion.icono }}</mat-icon>
+          <span matListItemTitle>{{ opcion.etiqueta }}</span>
+        </a>
+      }
+    }
+  </mat-nav-list>
+</nav>
+
+@if (auth.usuario()?.sede; as sede) {
+  <p class="sidebar-sede">
+    <mat-icon aria-hidden="true">location_on</mat-icon>
+    {{ sede }}
+  </p>
+}

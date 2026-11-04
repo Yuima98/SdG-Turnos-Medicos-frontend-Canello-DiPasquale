@@ -26,6 +26,7 @@ export interface CampoCatalogo {
 /** Lo único que distingue a sedes, especialidades y coberturas: comparten pantalla y formulario. */
 export interface ConfigCatalogo {
   titulo: string;
+  descripcion: string;
   entidad: string;
   articulo: string;
   servicio: Type<ServicioCatalogo>;
@@ -34,6 +35,7 @@ export interface ConfigCatalogo {
 
 export const CONFIG_SEDES: ConfigCatalogo = {
   titulo: 'Sedes',
+  descripcion: 'Administrá las sedes de la clínica.',
   entidad: 'sede',
   articulo: 'la',
   servicio: SedeService,
@@ -52,6 +54,7 @@ export const CONFIG_SEDES: ConfigCatalogo = {
 
 export const CONFIG_ESPECIALIDADES: ConfigCatalogo = {
   titulo: 'Especialidades',
+  descripcion: 'Definí las especialidades médicas.',
   entidad: 'especialidad',
   articulo: 'la',
   servicio: EspecialidadService,
@@ -60,6 +63,7 @@ export const CONFIG_ESPECIALIDADES: ConfigCatalogo = {
 
 export const CONFIG_COBERTURAS: ConfigCatalogo = {
   titulo: 'Coberturas',
+  descripcion: 'Gestioná las obras sociales.',
   entidad: 'cobertura',
   articulo: 'la',
   servicio: CoberturaService,

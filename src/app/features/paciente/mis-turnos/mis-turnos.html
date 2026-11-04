@@ -1,28 +1,46 @@
 <section class="pagina">
   <div class="pagina-encabezado">
-    <h1>Mis turnos</h1>
-    <a mat-flat-button routerLink="/paciente/nuevo-turno">Nuevo turno</a>
+    <div>
+      <h1>Mis turnos</h1>
+      <p>Consultá, cancelá y mirá tu historial.</p>
+    </div>
+    <a mat-flat-button routerLink="/paciente/nuevo-turno">
+      <mat-icon>calendar_add_on</mat-icon>
+      Nuevo turno
+    </a>
   </div>
 
   <app-estado-lista
     [cargando]="lista.cargando()"
     [error]="lista.error()"
     [vacio]="turnos().length === 0"
+    iconoVacio="calendar_month"
     mensajeVacio="Todavía no tenés turnos."
     (reintentar)="cargar()"
   >
-    <mat-accordion multi>
+    <mat-accordion multi class="turnos">
       @for (turno of turnos(); track turno.id) {
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>{{ turno.fecha | date: 'dd/MM/yyyy' }} — {{ turno.hora }}</mat-panel-title>
+            <mat-panel-title>
+              <span class="turno-fecha">
+                <strong>{{ turno.fecha | date: 'dd' }}</strong>
+                <small>{{ turno.fecha | date: 'MMM' }}</small>
+              </span>
+              <span class="turno-titulo">
+                <strong>{{ turno.especialidad }}</strong>
+                <small>
+                  <span class="turno-extra">{{ turno.fecha | date: 'EEEE' }}, </span>{{ turno.hora }} hs<span class="turno-extra">
+                    · {{ turno.sede }}</span>
+                </small>
+              </span>
+            </mat-panel-title>
             <mat-panel-description>
-              {{ turno.especialidad }}
-              <mat-chip-set><mat-chip class="estado-turno" [class]="turno.estado" disableRipple>{{ turno.estado }}</mat-chip></mat-chip-set>
+              <app-estado-turno [estado]="turno.estado" />
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          <dl class="detalle">
+          <dl class="ficha">
             <dt>Fecha</dt>
             <dd>{{ turno.fecha | date: 'EEEE dd/MM/yyyy' }}, {{ turno.hora }} hs</dd>
             <dt>Especialista</dt>
@@ -37,7 +55,7 @@
 
           @if (turno.estado === 'atendido' && turno.diagnostico) {
             <h3>Historial clínico</h3>
-            <dl class="detalle">
+            <dl class="ficha">
               <dt>Diagnóstico</dt>
               <dd>{{ turno.diagnostico }}</dd>
               <dt>Tratamiento</dt>
@@ -49,7 +67,7 @@
 
           @if (turno.estado === 'confirmado') {
             <mat-action-row>
-              <button mat-stroked-button (click)="cancelar(turno)">Cancelar turno</button>
+              <button mat-stroked-button class="boton-peligro" (click)="cancelar(turno)">Cancelar turno</button>
             </mat-action-row>
           }
         </mat-expansion-panel>

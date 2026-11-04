@@ -15,6 +15,7 @@ export class EstadoLista {
   readonly error = input<string | null>(null);
   readonly vacio = input(false);
   readonly mensajeVacio = input('No hay resultados.');
+  readonly iconoVacio = input('inbox');
 
   readonly reintentar = output<void>();
 }

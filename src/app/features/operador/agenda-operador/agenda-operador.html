@@ -1,6 +1,9 @@
 <section class="pagina">
   <div class="pagina-encabezado">
-    <h1>Agenda y turnos</h1>
+    <div>
+      <h1>Agenda y turnos</h1>
+      <p>Mirá la agenda de cada sede por día.</p>
+    </div>
     @if (esSedePropia()) {
       <button mat-flat-button (click)="nuevaAgenda()">
         <mat-icon>add</mat-icon>
@@ -9,63 +12,71 @@
     }
   </div>
 
-  <div class="filtros">
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Fecha</mat-label>
-      <input matInput [matDatepicker]="picker" [value]="fecha()" (dateChange)="cambiarFecha($event.value)" />
-      <mat-datepicker-toggle matIconSuffix [for]="picker" />
-      <mat-datepicker #picker />
-    </mat-form-field>
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Sede</mat-label>
-      <mat-select [value]="idSede()" (selectionChange)="cambiarSede($event.value)">
-        @for (sede of sedes(); track sede.id) {
-          <mat-option [value]="sede.id">{{ sede.nombre }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-  </div>
-
   @if (!esSedePropia()) {
-    <p>Estás consultando otra sede: solo podés modificar la agenda y los turnos de la tuya.</p>
+    <p class="nota-informativa">
+      <mat-icon aria-hidden="true">info</mat-icon>
+      Estás consultando otra sede: solo podés modificar la agenda y los turnos de la tuya.
+    </p>
   }
 
-  <app-estado-lista
-    [cargando]="lista.cargando()"
-    [error]="lista.error()"
-    [vacio]="medicos().length === 0"
-    [mensajeVacio]="'No hay médicos con agenda el ' + (fecha() | date: 'dd/MM/yyyy') + ' en esta sede.'"
-    (reintentar)="cargar()"
-  >
-    <table mat-table [dataSource]="medicos()" class="tabla">
-      <ng-container matColumnDef="medico">
-        <th mat-header-cell *matHeaderCellDef>Médico</th>
-        <td mat-cell *matCellDef="let medico">{{ medico.nombre }}</td>
-      </ng-container>
-      <ng-container matColumnDef="especialidad">
-        <th mat-header-cell *matHeaderCellDef>Especialidad</th>
-        <td mat-cell *matCellDef="let medico">{{ medico.especialidades.join(', ') }}</td>
-      </ng-container>
-      <ng-container matColumnDef="horario">
-        <th mat-header-cell *matHeaderCellDef>Horario de atención</th>
-        <td mat-cell *matCellDef="let medico">{{ medico.horarios.join(' y ') }}</td>
-      </ng-container>
-      <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let medico">
-          @if (esSedePropia()) {
-            <button mat-icon-button matTooltip="Editar agenda" aria-label="Editar agenda" (click)="editarAgenda(medico)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="Ver turnos confirmados" aria-label="Ver turnos confirmados" (click)="verTurnos(medico)">
-              <mat-icon>visibility</mat-icon>
-            </button>
+  <div class="panel">
+    <div class="filtros">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" [value]="fecha()" (dateChange)="cambiarFecha($event.value)" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+      </mat-form-field>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Sede</mat-label>
+        <mat-select [value]="idSede()" (selectionChange)="cambiarSede($event.value)">
+          @for (sede of sedes(); track sede.id) {
+            <mat-option [value]="sede.id">{{ sede.nombre }}</mat-option>
           }
-        </td>
-      </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-      <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
-    </table>
-  </app-estado-lista>
+    <app-estado-lista
+      [cargando]="lista.cargando()"
+      [error]="lista.error()"
+      [vacio]="medicos().length === 0"
+      iconoVacio="event_busy"
+      [mensajeVacio]="'No hay médicos con agenda el ' + (fecha() | date: 'dd/MM/yyyy') + ' en esta sede.'"
+      (reintentar)="cargar()"
+    >
+      <div class="tabla-scroll">
+        <table mat-table [dataSource]="filas()" matSort (matSortChange)="orden.set($event)" class="tabla">
+          <ng-container matColumnDef="medico">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Médico</th>
+            <td mat-cell *matCellDef="let medico" class="celda-principal">{{ medico.nombre }}</td>
+          </ng-container>
+          <ng-container matColumnDef="especialidad">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+            <td mat-cell *matCellDef="let medico">{{ medico.especialidades.join(', ') }}</td>
+          </ng-container>
+          <ng-container matColumnDef="horario">
+            <th mat-header-cell *matHeaderCellDef>Horario de atención</th>
+            <td mat-cell *matCellDef="let medico">{{ medico.horarios.join(' y ') }}</td>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef class="columna-acciones">Acciones</th>
+            <td mat-cell *matCellDef="let medico" class="columna-acciones">
+              @if (esSedePropia()) {
+                <button mat-icon-button matTooltip="Editar agenda" aria-label="Editar agenda" (click)="editarAgenda(medico)">
+                  <mat-icon>edit_calendar</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Ver turnos confirmados" aria-label="Ver turnos confirmados" (click)="verTurnos(medico)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+          <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+        </table>
+      </div>
+    </app-estado-lista>
+  </div>
 </section>

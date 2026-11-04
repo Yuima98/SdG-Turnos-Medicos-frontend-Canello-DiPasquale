@@ -31,7 +31,6 @@ import {
     MatSelectModule,
   ],
   templateUrl: './paciente-form.html',
-  styleUrl: './paciente-form.scss',
 })
 export class PacienteForm {
   private readonly fb = inject(FormBuilder);

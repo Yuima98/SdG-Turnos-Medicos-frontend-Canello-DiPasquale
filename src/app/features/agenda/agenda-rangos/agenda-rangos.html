@@ -1,4 +1,4 @@
-<div class="filtros">
+<div class="filtros agenda-acciones">
   <button mat-flat-button type="button" (click)="abrirFormulario()">
     <mat-icon>add</mat-icon>
     Agregar rango horario
@@ -9,35 +9,38 @@
   [cargando]="lista.cargando()"
   [error]="lista.error()"
   [vacio]="lista.datos().length === 0"
+  iconoVacio="event_busy"
   mensajeVacio="No hay rangos horarios cargados para esta fecha."
   (reintentar)="cargar()"
 >
-  <table mat-table [dataSource]="lista.datos()" class="tabla">
-    <ng-container matColumnDef="horario">
-      <th mat-header-cell *matHeaderCellDef>Horario</th>
-      <td mat-cell *matCellDef="let rango">{{ rango.hora_entrada }} a {{ rango.hora_salida }}</td>
-    </ng-container>
-    <ng-container matColumnDef="especialidad">
-      <th mat-header-cell *matHeaderCellDef>Especialidad</th>
-      <td mat-cell *matCellDef="let rango">{{ rango.especialidad }}</td>
-    </ng-container>
-    <ng-container matColumnDef="sede">
-      <th mat-header-cell *matHeaderCellDef>Sede</th>
-      <td mat-cell *matCellDef="let rango">{{ rango.sede }}</td>
-    </ng-container>
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
-      <td mat-cell *matCellDef="let rango">
-        <button mat-icon-button type="button" matTooltip="Modificar" aria-label="Modificar" (click)="abrirFormulario(rango)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button type="button" matTooltip="Eliminar" aria-label="Eliminar" (click)="eliminar(rango)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+  <div class="tabla-scroll">
+    <table mat-table [dataSource]="filas()" matSort (matSortChange)="orden.set($event)" class="tabla tabla-plana">
+      <ng-container matColumnDef="horario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Horario</th>
+        <td mat-cell *matCellDef="let rango" class="celda-principal">{{ rango.hora_entrada }} a {{ rango.hora_salida }}</td>
+      </ng-container>
+      <ng-container matColumnDef="especialidad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+        <td mat-cell *matCellDef="let rango">{{ rango.especialidad }}</td>
+      </ng-container>
+      <ng-container matColumnDef="sede">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
+        <td mat-cell *matCellDef="let rango">{{ rango.sede }}</td>
+      </ng-container>
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef class="columna-acciones">Acciones</th>
+        <td mat-cell *matCellDef="let rango" class="columna-acciones">
+          <button mat-icon-button type="button" matTooltip="Modificar" aria-label="Modificar" (click)="abrirFormulario(rango)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button type="button" class="accion-peligro" matTooltip="Eliminar" aria-label="Eliminar" (click)="eliminar(rango)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-    <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+    </table>
+  </div>
 </app-estado-lista>

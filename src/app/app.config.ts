@@ -10,6 +10,7 @@ import localeEsAr from '@angular/common/locales/es-AR';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { DateAdapter, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import { MAT_ICON_DEFAULT_OPTIONS } from '@angular/material/icon';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { catchError, of } from 'rxjs';
 
@@ -47,6 +48,7 @@ export const appConfig: ApplicationConfig = {
     { provide: DateAdapter, useClass: FechaAdapter },
     { provide: MatPaginatorIntl, useClass: Paginador },
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },
+    { provide: MAT_ICON_DEFAULT_OPTIONS, useValue: { fontSet: 'material-symbols-outlined' } },
     { provide: LOCALE_ID, useValue: 'es-AR' },
     provideAppInitializer(restaurarSesion),
   ],

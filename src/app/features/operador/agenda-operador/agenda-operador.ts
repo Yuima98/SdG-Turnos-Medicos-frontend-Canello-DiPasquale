@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RangoAgenda } from '../../../core/models/agenda.model';
@@ -17,6 +18,7 @@ import { Avisos } from '../../../core/services/avisos';
 import { SedeService } from '../../../core/services/sede';
 import { Carga } from '../../../core/utils/carga';
 import { aFechaIso } from '../../../core/utils/fechas';
+import { SIN_ORDEN, ordenar } from '../../../core/utils/orden';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
 import { DatosRangoDialogo, RangoDialogo } from '../../agenda/rango-dialogo/rango-dialogo';
 import { AgendaMedicoDialogo } from './agenda-medico-dialogo';
@@ -40,6 +42,7 @@ export interface MedicoEnAgenda {
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSortModule,
     MatTableModule,
     MatTooltipModule,
   ],
@@ -79,6 +82,13 @@ export class AgendaOperador {
     }
     return [...medicos.values()];
   });
+
+  protected readonly orden = signal(SIN_ORDEN);
+  protected readonly filas = computed(() =>
+    ordenar(this.medicos(), this.orden(), (medico, columna) =>
+      columna === 'especialidad' ? medico.especialidades.join(', ') : medico.nombre,
+    ),
+  );
 
   constructor() {
     this.sedeService.listar().subscribe({

@@ -10,11 +10,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { debounceTime } from 'rxjs';
 import { Pagina } from '../../../core/models/api.model';
-import { RegistroAuditoria } from '../../../core/models/gestion.model';
+import { ETIQUETA_ACCION, RegistroAuditoria } from '../../../core/models/gestion.model';
 import { AuditoriaService } from '../../../core/services/auditoria';
 import { Carga } from '../../../core/utils/carga';
 import { aFechaIso } from '../../../core/utils/fechas';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
+import { Etiqueta } from '../../../shared/components/etiqueta/etiqueta';
 
 @Component({
   selector: 'app-auditoria',
@@ -22,6 +23,7 @@ import { EstadoLista } from '../../../shared/components/estado-lista/estado-list
     DatePipe,
     ReactiveFormsModule,
     EstadoLista,
+    Etiqueta,
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
@@ -35,6 +37,7 @@ export class Auditoria {
   private readonly fb = inject(FormBuilder);
   private readonly auditoriaService = inject(AuditoriaService);
 
+  protected readonly etiquetaAccion = ETIQUETA_ACCION;
   protected readonly entidades = ['usuario', 'sede', 'especialidad', 'cobertura', 'agenda'];
   protected readonly columnas = ['fecha', 'usuario', 'accion', 'entidad', 'detalle'];
 
@@ -55,6 +58,10 @@ export class Auditoria {
       this.cargar();
     });
     this.cargar();
+  }
+
+  protected asAccion(accion: string): RegistroAuditoria['accion'] {
+    return accion as RegistroAuditoria['accion'];
   }
 
   cargar(): void {

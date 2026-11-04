@@ -1,21 +1,31 @@
 <section class="pagina">
   <div class="pagina-encabezado">
-    <h1>Historial clínico</h1>
+    <div>
+      <h1>Historial clínico</h1>
+      <p>Buscá un paciente y consultá sus registros.</p>
+    </div>
     @if (paciente()) {
-      <button mat-stroked-button (click)="paciente.set(null)">Buscar otro paciente</button>
+      <button mat-stroked-button (click)="paciente.set(null)">
+        <mat-icon>person_search</mat-icon>
+        Buscar otro paciente
+      </button>
     }
   </div>
 
   @if (paciente(); as seleccionado) {
-    <p>
-      <strong>{{ seleccionado.apellido }}, {{ seleccionado.nombre }}</strong>
-      — DNI {{ seleccionado.dni }}. Se muestran solo los turnos que atendiste vos.
-    </p>
+    <div class="paciente-activo">
+      <mat-icon aria-hidden="true">person</mat-icon>
+      <div>
+        <strong>{{ seleccionado.apellido }}, {{ seleccionado.nombre }}</strong>
+        <small>DNI {{ seleccionado.dni }}. Se muestran solo los turnos que atendiste vos.</small>
+      </div>
+    </div>
 
     <app-estado-lista
       [cargando]="registros.cargando()"
       [error]="registros.error()"
       [vacio]="registros.datos().length === 0"
+      iconoVacio="medical_information"
       mensajeVacio="No atendiste turnos de este paciente."
       (reintentar)="cargar()"
     >
@@ -27,9 +37,14 @@
               <mat-card-subtitle>{{ registro.especialidad }} · {{ registro.sede }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-              <p><strong>Diagnóstico:</strong> {{ registro.diagnostico }}</p>
-              <p><strong>Tratamiento:</strong> {{ registro.tratamiento || '—' }}</p>
-              <p><strong>Observaciones:</strong> {{ registro.observaciones || '—' }}</p>
+              <dl class="ficha">
+                <dt>Diagnóstico</dt>
+                <dd>{{ registro.diagnostico }}</dd>
+                <dt>Tratamiento</dt>
+                <dd>{{ registro.tratamiento || '—' }}</dd>
+                <dt>Observaciones</dt>
+                <dd>{{ registro.observaciones || '—' }}</dd>
+              </dl>
             </mat-card-content>
           </mat-card>
         }

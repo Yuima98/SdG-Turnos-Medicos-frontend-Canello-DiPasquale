@@ -1,0 +1,50 @@
+// Identidad visual: todo color, radio y sombra de la app sale de estas variables.
+:root {
+  // Marca
+  --sdg-petroleo-900: #0a2d3d;
+  --sdg-petroleo-800: #0e3a4e;
+  --sdg-petroleo-700: #124c66;
+  --sdg-petroleo-600: #1a6079;
+  --sdg-azul-600: #1b6ca8;
+  --sdg-azul-100: #e4f0f9;
+  --sdg-verde-600: #0f7c74;
+  --sdg-verde-100: #def3f0;
+
+  // Neutros
+  --sdg-texto: #16262f;
+  --sdg-texto-secundario: #4a5d68;
+  --sdg-texto-tenue: #5f717b;
+  --sdg-borde: #dde5ea;
+  --sdg-borde-fuerte: #b9c7cf;
+  --sdg-fondo: #f3f6f8;
+  --sdg-superficie: #ffffff;
+  --sdg-superficie-suave: #f8fafb;
+
+  // Estados
+  --sdg-exito: #1a7a4c;
+  --sdg-exito-suave: #e2f4ea;
+  --sdg-alerta: #8f5508;
+  --sdg-alerta-suave: #fcf0da;
+  --sdg-peligro: #b42d2a;
+  --sdg-peligro-suave: #fbe8e7;
+  --sdg-info: var(--sdg-azul-600);
+  --sdg-info-suave: var(--sdg-azul-100);
+
+  // Forma
+  --sdg-radio-s: 8px;
+  --sdg-radio-m: 12px;
+  --sdg-radio-l: 16px;
+  --sdg-sombra-1: 0 1px 2px rgb(10 45 61 / 6%);
+  --sdg-sombra-2: 0 6px 20px rgb(10 45 61 / 10%);
+  --sdg-transicion: 150ms ease;
+
+  // Medidas
+  --sdg-alto-header: 64px;
+  --sdg-gutter: 24px;
+}
+
+@media (max-width: 599.98px) {
+  :root {
+    --sdg-gutter: 16px;
+  }
+}

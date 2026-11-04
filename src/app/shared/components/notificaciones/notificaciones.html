@@ -2,6 +2,7 @@
   mat-icon-button
   [matMenuTriggerFor]="menu"
   (menuOpened)="servicio.refrescar()"
+  matTooltip="Notificaciones"
   [attr.aria-label]="'Notificaciones, ' + servicio.noLeidas() + ' sin leer'"
 >
   <mat-icon

@@ -1,37 +1,58 @@
 <mat-toolbar class="header">
   @if (auth.estaLogueado()) {
-    <button mat-icon-button [matMenuTriggerFor]="menuNav" aria-label="Abrir menú de navegación">
+    <button
+      mat-icon-button
+      matTooltip="Menú de navegación"
+      aria-label="Abrir o cerrar el menú de navegación"
+      (click)="alternarMenu.emit()"
+    >
       <mat-icon>menu</mat-icon>
     </button>
-    <a routerLink="/" class="header-title">
+  }
+
+  @if (!marcaEnSidebar()) {
+    <a routerLink="/" class="header-marca">
       <app-logo />
-      Clínica Virtual
+      <span>Clínica Virtual</span>
     </a>
-  } @else {
-    <a routerLink="/" class="header-title">
-      <app-logo />
-      Clínica Virtual
-    </a>
+  }
+
+  @if (auth.estaLogueado()) {
+    <app-migas class="header-migas" />
   }
 
   <span class="header-spacer"></span>
 
   @if (auth.estaLogueado()) {
     <app-notificaciones />
-    <span class="header-usuario">{{ auth.usuario()?.nombre }} {{ auth.usuario()?.apellido }}</span>
-    <span class="header-rol">{{ etiquetaRol() }}</span>
-    <button mat-button (click)="cerrarSesion()">Cerrar sesión</button>
+
+    <button mat-button class="header-usuario" [matMenuTriggerFor]="menuUsuario" aria-label="Abrir el menú de usuario">
+      <span class="header-avatar" aria-hidden="true">{{ iniciales() }}</span>
+      <span class="header-usuario-texto">
+        <strong>{{ auth.usuario()?.nombre }} {{ auth.usuario()?.apellido }}</strong>
+        <small>{{ etiquetaRol() }}</small>
+      </span>
+      <mat-icon iconPositionEnd class="header-usuario-flecha" aria-hidden="true">expand_more</mat-icon>
+    </button>
   } @else {
-    <button mat-button routerLink="/login">Iniciar sesión</button>
-    <button mat-raised-button routerLink="/registro">Registrarse</button>
+    <a mat-button routerLink="/login">Iniciar sesión</a>
+    <a mat-flat-button routerLink="/registro">Registrarse</a>
   }
 </mat-toolbar>
 
-<mat-menu #menuNav="matMenu">
-  @for (opcion of opcionesMenu(); track opcion.ruta) {
-    <a mat-menu-item [routerLink]="opcion.ruta" [class]="'tono-' + opcion.tono">
-      <mat-icon class="icono-tono">{{ opcion.icono }}</mat-icon>
-      <span>{{ opcion.etiqueta }}</span>
+<mat-menu #menuUsuario="matMenu" xPosition="before">
+  <div class="menu-usuario-datos">
+    <strong>{{ auth.usuario()?.nombre }} {{ auth.usuario()?.apellido }}</strong>
+    <small>{{ etiquetaRol() }}</small>
+  </div>
+  @if (auth.usuario()?.rol === 'paciente') {
+    <a mat-menu-item routerLink="/paciente/mis-datos">
+      <mat-icon>badge</mat-icon>
+      <span>Mis datos personales</span>
     </a>
   }
+  <button mat-menu-item (click)="cerrarSesion()">
+    <mat-icon>logout</mat-icon>
+    <span>Cerrar sesión</span>
+  </button>
 </mat-menu>

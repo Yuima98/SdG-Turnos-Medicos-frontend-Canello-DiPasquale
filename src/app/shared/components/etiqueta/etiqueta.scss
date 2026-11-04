@@ -1,0 +1,45 @@
+:host {
+  display: inline-flex;
+}
+
+.etiqueta {
+  --mat-chip-container-height: 24px;
+  --mat-chip-container-shape-radius: 12px;
+  --mat-chip-label-text-size: 0.75rem;
+  --mat-chip-label-text-weight: 600;
+  --mat-chip-outline-width: 0;
+  --mat-chip-with-avatar-avatar-size: 16px;
+  --mat-chip-elevated-container-color: var(--fondo);
+  --mat-chip-label-text-color: var(--color);
+
+  text-transform: capitalize;
+
+  mat-icon {
+    color: var(--color);
+  }
+}
+
+.tono-neutro {
+  --color: var(--sdg-texto-secundario);
+  --fondo: #e9eef1;
+}
+
+.tono-info {
+  --color: #155a8c;
+  --fondo: var(--sdg-info-suave);
+}
+
+.tono-exito {
+  --color: #14613c;
+  --fondo: var(--sdg-exito-suave);
+}
+
+.tono-alerta {
+  --color: var(--sdg-alerta);
+  --fondo: var(--sdg-alerta-suave);
+}
+
+.tono-peligro {
+  --color: #962320;
+  --fondo: var(--sdg-peligro-suave);
+}

@@ -20,6 +20,7 @@ import { SedeService } from '../../../core/services/sede';
 import { UsuarioService } from '../../../core/services/usuario';
 import { Carga } from '../../../core/utils/carga';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
+import { Etiqueta } from '../../../shared/components/etiqueta/etiqueta';
 import { UsuarioDialogo } from './usuario-dialogo';
 
 @Component({
@@ -27,6 +28,7 @@ import { UsuarioDialogo } from './usuario-dialogo';
   imports: [
     ReactiveFormsModule,
     EstadoLista,
+    Etiqueta,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,

@@ -40,6 +40,15 @@ export interface RegistroAuditoria {
   fecha: string;
 }
 
+export const ETIQUETA_ACCION: Record<
+  RegistroAuditoria['accion'],
+  { texto: string; icono: string; tono: 'exito' | 'info' | 'peligro' }
+> = {
+  ALTA: { texto: 'Alta', icono: 'add', tono: 'exito' },
+  MODIFICACION: { texto: 'Modificación', icono: 'edit', tono: 'info' },
+  BAJA: { texto: 'Baja', icono: 'delete', tono: 'peligro' },
+};
+
 export interface FiltrosAuditoria {
   usuario?: string;
   entidad?: string | null;

@@ -1,9 +1,9 @@
+.tabla-turnos {
+  min-width: 860px;
+}
+
 .fila-turno {
   cursor: pointer;
-
-  &:hover {
-    background: var(--mat-sys-surface-container);
-  }
 }
 
 .fila-detalle {
@@ -11,9 +11,32 @@
 }
 
 .detalle {
-  border-bottom-width: 0;
+  background: var(--sdg-superficie-suave);
 
   p {
-    margin: 0 0 12px;
+    margin: 12px 0;
+    color: var(--sdg-texto-secundario);
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--sdg-texto);
+  }
+
+  &:empty,
+  &:not(:has(p)) {
+    padding: 0;
+    border-bottom-width: 0;
+  }
+}
+
+.indicador-detalle {
+  margin-left: 4px;
+  vertical-align: middle;
+  color: var(--sdg-texto-tenue);
+  transition: transform var(--sdg-transicion);
+
+  &.abierto {
+    transform: rotate(180deg);
   }
 }

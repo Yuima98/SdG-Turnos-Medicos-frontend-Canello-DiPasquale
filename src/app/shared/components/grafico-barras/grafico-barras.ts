@@ -9,9 +9,10 @@ import {
 } from 'chart.js';
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip);
+Chart.defaults.font.family = 'Inter, Roboto, sans-serif';
 
-const COLOR_TEXTO = '#44474e';
-const COLOR_GRILLA = '#e1e2e8';
+const COLOR_TEXTO = '#4a5d68';
+const COLOR_GRILLA = '#e9eef1';
 const ALTO_POR_BARRA_PX = 44;
 const ALTO_EJE_PX = 32;
 
@@ -33,7 +34,7 @@ export class GraficoBarras implements OnDestroy {
   readonly etiquetas = input.required<string[]>();
   readonly valores = input.required<number[]>();
   readonly descripcion = input.required<string>();
-  readonly color = input('#1f6fd1');
+  readonly color = input('#124c66');
 
   protected readonly alturaBarra = ALTO_POR_BARRA_PX;
   protected readonly alturaEje = ALTO_EJE_PX;

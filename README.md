@@ -105,7 +105,10 @@ Todos usan la contraseña `Password123!` y se ingresa con el DNI.
 - **Listados:** `Carga` guarda el dato, el indicador de carga y el error de cada pedido, y `EstadoLista` los muestra de la misma forma en todas las pantallas, con un botón para reintentar.
 - **Reutilización:** `PacienteForm` se usa en el registro y en el alta del operador; `NuevoTurno`, en el paciente y en el operador con la sede fija; `AgendaRangos` y `RangoDialogo`, en el médico y en el operador; `Catalogo`, en sedes, especialidades y coberturas.
 - **Duración del turno:** 30 minutos, definida en el backend. El alta de turno y la consulta de horarios libres aplican las mismas reglas, por lo que nunca se ofrece un horario que después se rechazaría.
-- **Carga diferida:** las pantallas de cada rol se descargan al entrar a ellas, y así el build de producción respeta el presupuesto configurado.
+- **Carga diferida:** las pantallas de cada rol, el login, el registro y el panel de inicio se descargan al entrar a ellos, y así el build de producción respeta el presupuesto configurado.
+- **Identidad visual:** colores, radios y sombras son variables CSS definidas en `src/styles/_tokens.scss`, y Angular Material se personaliza solo con su API de `overrides` en `src/styles/_material.scss`. Los íconos son Material Symbols.
+- **Panel de inicio:** cada rol ve indicadores calculados con los servicios existentes. No hay datos de ejemplo ni endpoints propios del panel.
+- **Orden de columnas:** `mat-sort` se usa en los listados que llegan completos al navegador. Usuarios y auditoría se paginan en el servidor, que no ofrece orden, y ordenar solo la página visible sería engañoso.
 
 ## Cambios en el backend para este frontend
 
@@ -125,6 +128,7 @@ Están en la rama `entrega-frontend` del backend y documentados en la colección
 ## Estructura de carpetas
 
 ```
+src/styles/              # Variables de identidad visual, tema de Material y estructura común
 src/app/
 ├── core/               # Lógica transversal (una sola instancia en toda la app)
 │   ├── guards/          # Control de acceso por rol

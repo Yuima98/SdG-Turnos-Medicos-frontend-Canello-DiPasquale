@@ -1,27 +1,12 @@
 @if (auth.estaLogueado()) {
-  <section class="pagina">
-    <div class="saludo">
-      <h1>¡Hola, {{ auth.usuario()?.nombre }}!</h1>
-      <p>¿Qué querés hacer hoy?</p>
-    </div>
-
-    <div class="accesos">
-      @for (acceso of accesos(); track acceso.ruta) {
-        <mat-card appearance="outlined" class="acceso" [class]="'tono-' + acceso.tono">
-          <a class="acceso-enlace" [routerLink]="acceso.ruta">
-            <span class="acceso-icono"><mat-icon aria-hidden="true">{{ acceso.icono }}</mat-icon></span>
-            <span class="acceso-texto">
-              <strong>{{ acceso.etiqueta }}</strong>
-              <small>{{ acceso.descripcion }}</small>
-            </span>
-            <mat-icon class="acceso-flecha" aria-hidden="true">arrow_forward</mat-icon>
-          </a>
-        </mat-card>
-      }
-    </div>
-  </section>
+  @defer {
+    <app-panel-inicio />
+  }
 } @else {
   <section class="heroe">
+    <svg class="heroe-marca" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M19 9h10v10h10v10H29v10H19V29H9V19h10z" fill="currentColor" />
+    </svg>
     <div class="heroe-texto">
       <h1>Bienvenido a la Clínica Virtual</h1>
       <p>
@@ -30,34 +15,27 @@
       </p>
 
       <div class="heroe-acciones">
-        <button mat-flat-button routerLink="/login">Iniciar sesión</button>
-        <button mat-stroked-button routerLink="/registro">Registrarme</button>
+        <a mat-flat-button class="boton-claro" routerLink="/login">Iniciar sesión</a>
+        <a mat-stroked-button class="boton-contorno" routerLink="/registro">Registrarme</a>
       </div>
     </div>
-    <img src="ilustraciones/clinica.svg" alt="Ilustración de la clínica con un calendario de turnos" />
   </section>
 
   <section class="beneficios">
-    <mat-card appearance="outlined" class="beneficio tono-azul">
-      <mat-card-header>
-        <span mat-card-avatar class="acceso-icono"><mat-icon aria-hidden="true">event_available</mat-icon></span>
-        <h2 mat-card-title>Turnos online</h2>
-        <p mat-card-subtitle>Reservá y gestioná tus turnos médicos cuando quieras.</p>
-      </mat-card-header>
+    <mat-card appearance="outlined" class="beneficio">
+      <span class="beneficio-icono"><mat-icon aria-hidden="true">calendar_month</mat-icon></span>
+      <h2>Turnos online</h2>
+      <p>Reservá y gestioná tus turnos médicos cuando quieras.</p>
     </mat-card>
-    <mat-card appearance="outlined" class="beneficio tono-verde">
-      <mat-card-header>
-        <span mat-card-avatar class="acceso-icono"><mat-icon aria-hidden="true">badge</mat-icon></span>
-        <h2 mat-card-title>Tus datos al día</h2>
-        <p mat-card-subtitle>Accedé a tu perfil y datos de cobertura en todo momento.</p>
-      </mat-card-header>
+    <mat-card appearance="outlined" class="beneficio">
+      <span class="beneficio-icono"><mat-icon aria-hidden="true">badge</mat-icon></span>
+      <h2>Tus datos al día</h2>
+      <p>Accedé a tu perfil y datos de cobertura en todo momento.</p>
     </mat-card>
-    <mat-card appearance="outlined" class="beneficio tono-naranja">
-      <mat-card-header>
-        <span mat-card-avatar class="acceso-icono"><mat-icon aria-hidden="true">notifications_active</mat-icon></span>
-        <h2 mat-card-title>Avisos</h2>
-        <p mat-card-subtitle>Recibí notificaciones sobre tus próximos turnos.</p>
-      </mat-card-header>
+    <mat-card appearance="outlined" class="beneficio">
+      <span class="beneficio-icono"><mat-icon aria-hidden="true">notifications</mat-icon></span>
+      <h2>Avisos</h2>
+      <p>Recibí notificaciones sobre tus próximos turnos.</p>
     </mat-card>
   </section>
 }

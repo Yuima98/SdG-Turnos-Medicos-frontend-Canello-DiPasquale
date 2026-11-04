@@ -1,19 +1,24 @@
 <section class="pagina">
   <div class="pagina-encabezado">
-    <h1>Reportes y estadísticas</h1>
+    <div>
+      <h1>Reportes y estadísticas</h1>
+      <p>Seguí los indicadores de la clínica.</p>
+    </div>
   </div>
 
-  <form class="filtros" [formGroup]="filtros">
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Rango de fechas</mat-label>
-      <mat-date-range-input [rangePicker]="rango">
-        <input matStartDate formControlName="desde" placeholder="Desde" />
-        <input matEndDate formControlName="hasta" placeholder="Hasta" />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matIconSuffix [for]="rango" />
-      <mat-date-range-picker #rango />
-    </mat-form-field>
-  </form>
+  <div class="panel filtros-reporte">
+    <form class="filtros" [formGroup]="filtros">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Rango de fechas</mat-label>
+        <mat-date-range-input [rangePicker]="rango">
+          <input matStartDate formControlName="desde" placeholder="Desde" />
+          <input matEndDate formControlName="hasta" placeholder="Hasta" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="rango" />
+        <mat-date-range-picker #rango />
+      </mat-form-field>
+    </form>
+  </div>
 
   <app-estado-lista
     [cargando]="reportes.cargando()"
@@ -22,18 +27,14 @@
     (reintentar)="cargar()"
   >
     @if (reportes.datos(); as datos) {
-      <div class="tablero">
-        <mat-card class="indicador">
-          <mat-card-content>
-            <span class="indicador-titulo">Tasa de cancelación</span>
-            <strong class="indicador-valor">{{ datos.cancelacion.tasa_cancelacion | number: '1.0-2' }} %</strong>
-            <span class="indicador-detalle">
-              {{ datos.cancelacion.turnos_cancelados }} cancelados de {{ datos.cancelacion.total_turnos }} turnos
-            </span>
-          </mat-card-content>
-        </mat-card>
+      <div class="indicadores">
+        @for (indicador of indicadores(); track indicador.etiqueta) {
+          <app-indicador [datos]="indicador" />
+        }
+      </div>
 
-        <mat-card appearance="outlined" class="tarjeta tono-azul">
+      <div class="tablero">
+        <mat-card appearance="outlined" class="tarjeta">
           <mat-card-header><mat-card-title>Turnos por especialidad</mat-card-title></mat-card-header>
           <mat-card-content>
             <app-grafico-barras
@@ -44,37 +45,38 @@
           </mat-card-content>
         </mat-card>
 
-        <mat-card appearance="outlined" class="tarjeta tono-verde">
+        <mat-card appearance="outlined" class="tarjeta">
           <mat-card-header><mat-card-title>Turnos por sede</mat-card-title></mat-card-header>
           <mat-card-content>
             <app-grafico-barras
               [etiquetas]="sedes().etiquetas"
               [valores]="sedes().valores"
-              color="#00897b"
               descripcion="Gráfico de barras con la cantidad de turnos por sede"
             />
           </mat-card-content>
         </mat-card>
 
-        <mat-card appearance="outlined" class="tarjeta tono-violeta">
+        <mat-card appearance="outlined" class="tarjeta tarjeta-ancha">
           <mat-card-header><mat-card-title>Médicos por turnos atendidos</mat-card-title></mat-card-header>
-          <mat-card-content>
-            <table mat-table [dataSource]="datos.ranking" class="tabla">
-              <ng-container matColumnDef="posicion">
-                <th mat-header-cell *matHeaderCellDef>#</th>
-                <td mat-cell *matCellDef="let _; let i = index">{{ i + 1 }}</td>
-              </ng-container>
-              <ng-container matColumnDef="medico">
-                <th mat-header-cell *matHeaderCellDef>Médico</th>
-                <td mat-cell *matCellDef="let medico">{{ medico.apellido }}, {{ medico.nombre }}</td>
-              </ng-container>
-              <ng-container matColumnDef="cantidad">
-                <th mat-header-cell *matHeaderCellDef>Atendidos</th>
-                <td mat-cell *matCellDef="let medico">{{ medico.cantidad_turnos_atendidos }}</td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="columnasRanking"></tr>
-              <tr mat-row *matRowDef="let fila; columns: columnasRanking"></tr>
-            </table>
+          <mat-card-content class="tarjeta-tabla">
+            <div class="tabla-scroll">
+              <table mat-table [dataSource]="datos.ranking" class="tabla tabla-plana">
+                <ng-container matColumnDef="posicion">
+                  <th mat-header-cell *matHeaderCellDef>#</th>
+                  <td mat-cell *matCellDef="let _; let i = index">{{ i + 1 }}</td>
+                </ng-container>
+                <ng-container matColumnDef="medico">
+                  <th mat-header-cell *matHeaderCellDef>Médico</th>
+                  <td mat-cell *matCellDef="let medico" class="celda-principal">{{ medico.apellido }}, {{ medico.nombre }}</td>
+                </ng-container>
+                <ng-container matColumnDef="cantidad">
+                  <th mat-header-cell *matHeaderCellDef>Atendidos</th>
+                  <td mat-cell *matCellDef="let medico">{{ medico.cantidad_turnos_atendidos }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnasRanking"></tr>
+                <tr mat-row *matRowDef="let fila; columns: columnasRanking"></tr>
+              </table>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>

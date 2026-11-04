@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 /** Texto para mostrar al usuario a partir de un error de la API. */
 export function mensajeDeError(error: unknown, alternativo = 'Ocurrió un error inesperado.'): string {
@@ -16,6 +16,8 @@ export function mensajeDeError(error: unknown, alternativo = 'Ocurrió un error 
   return alternativo;
 }
 
+const POSICION: MatSnackBarConfig = { horizontalPosition: 'end', verticalPosition: 'top' };
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,14 +25,18 @@ export class Avisos {
   private readonly snackBar = inject(MatSnackBar);
 
   exito(mensaje: string): void {
-    this.snackBar.open(mensaje, 'Cerrar', { duration: 4000 });
+    this.snackBar.open(mensaje, 'Cerrar', { ...POSICION, duration: 4000, panelClass: 'aviso-exito' });
   }
 
   error(error: unknown, alternativo?: string): void {
-    this.snackBar.open(mensajeDeError(error, alternativo), 'Cerrar', { duration: 7000 });
+    this.snackBar.open(mensajeDeError(error, alternativo), 'Cerrar', {
+      ...POSICION,
+      duration: 7000,
+      panelClass: 'aviso-error',
+    });
   }
 
   informar(mensaje: string): void {
-    this.snackBar.open(mensaje, 'Cerrar', { duration: 7000 });
+    this.snackBar.open(mensaje, 'Cerrar', { ...POSICION, duration: 7000 });
   }
 }

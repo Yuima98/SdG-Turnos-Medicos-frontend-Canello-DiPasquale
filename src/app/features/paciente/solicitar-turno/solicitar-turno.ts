@@ -7,7 +7,10 @@ import { NuevoTurno } from '../../turnos/nuevo-turno/nuevo-turno';
   template: `
     <section class="pagina">
       <div class="pagina-encabezado">
-        <h1>Nuevo turno</h1>
+        <div>
+          <h1>Nuevo turno</h1>
+          <p>Elegí especialidad, médico y horario.</p>
+        </div>
       </div>
       <app-nuevo-turno />
     </section>

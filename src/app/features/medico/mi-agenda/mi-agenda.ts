@@ -11,26 +11,31 @@ import { AgendaRangos } from '../../agenda/agenda-rangos/agenda-rangos';
   template: `
     <section class="pagina">
       <div class="pagina-encabezado">
-        <h1>Mi agenda</h1>
+        <div>
+          <h1>Mi agenda</h1>
+          <p>Cargá tus rangos horarios por sede.</p>
+        </div>
       </div>
 
-      <div class="filtros">
-        <mat-form-field appearance="outline" subscriptSizing="dynamic">
-          <mat-label>Fecha</mat-label>
-          <input
-            matInput
-            [matDatepicker]="picker"
-            [value]="fecha()"
-            (dateChange)="cambiarFecha($event.value)"
-          />
-          <mat-datepicker-toggle matIconSuffix [for]="picker" />
-          <mat-datepicker #picker />
-        </mat-form-field>
-      </div>
+      <div class="panel">
+        <div class="filtros">
+          <mat-form-field appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Fecha</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [value]="fecha()"
+              (dateChange)="cambiarFecha($event.value)"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="picker" />
+            <mat-datepicker #picker />
+          </mat-form-field>
+        </div>
 
-      @if (auth.usuario(); as usuario) {
-        <app-agenda-rangos [idMedico]="usuario.id" [fecha]="fecha()" [idSede]="usuario.id_sede" />
-      }
+        @if (auth.usuario(); as usuario) {
+          <app-agenda-rangos [idMedico]="usuario.id" [fecha]="fecha()" [idSede]="usuario.id_sede" />
+        }
+      </div>
     </section>
   `,
 })

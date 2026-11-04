@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 12px;
 
-  p {
-    margin: 8px 0 0;
+  mat-card-content {
+    padding-top: 12px;
   }
 }

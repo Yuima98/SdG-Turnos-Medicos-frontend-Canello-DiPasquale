@@ -5,10 +5,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Avisos } from '../../../core/services/avisos';
 import { Carga } from '../../../core/utils/carga';
+import { SIN_ORDEN, ordenar } from '../../../core/utils/orden';
 import { Confirmacion } from '../../../shared/components/confirmacion/confirmacion';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
 import { CatalogoDialogo } from './catalogo-dialogo';
@@ -23,6 +25,7 @@ import { ConfigCatalogo, FilaCatalogo } from './catalogo.config';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatSortModule,
     MatTableModule,
     MatTooltipModule,
   ],
@@ -39,12 +42,14 @@ export class Catalogo {
   protected readonly columnas = [...this.config.campos.map((campo) => campo.clave), 'acciones'];
   protected readonly lista = new Carga<FilaCatalogo[]>([]);
   protected readonly filtro = signal('');
+  protected readonly orden = signal(SIN_ORDEN);
 
   protected readonly filas = computed(() => {
     const texto = this.filtro().trim().toLowerCase();
-    return this.lista.datos().filter((fila) =>
+    const coincidencias = this.lista.datos().filter((fila) =>
       this.config.campos.some((campo) => String(fila[campo.clave]).toLowerCase().includes(texto)),
     );
+    return ordenar(coincidencias, this.orden(), (fila, columna) => fila[columna]);
   });
 
   constructor() {

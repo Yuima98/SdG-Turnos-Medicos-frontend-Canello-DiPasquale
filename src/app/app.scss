@@ -1,7 +1,13 @@
-.app-layout {
+.app-shell {
+  height: 100dvh;
+}
+
+// Header y footer quedan fijos: solo se desplaza el contenido
+.app-columna {
   display: flex;
   flex-direction: column;
-  height: 100dvh;
+  height: 100%;
+  overflow: hidden;
 }
 
 app-header,
@@ -9,8 +15,7 @@ app-footer {
   flex: none;
 }
 
-// Header y footer quedan fijos: solo se desplaza el contenido
-.app-content {
+.app-contenido {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;

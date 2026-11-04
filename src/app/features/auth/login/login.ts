@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Auth } from '../../../core/services/auth';
 import { Avisos } from '../../../core/services/avisos';
 import { PATRON_DNI } from '../../../core/utils/validaciones';
@@ -17,14 +18,14 @@ import { PanelAcceso } from '../../../shared/components/panel-acceso/panel-acces
     ReactiveFormsModule,
     RouterLink,
     MatButtonModule,
-    MatCardModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
     PanelAcceso,
   ],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
 })
 export class Login {
   private readonly fb = inject(FormBuilder);
@@ -33,6 +34,7 @@ export class Login {
   private readonly avisos = inject(Avisos);
 
   protected readonly enviando = signal(false);
+  protected readonly verPassword = signal(false);
 
   protected readonly form = this.fb.nonNullable.group({
     dni: ['', [Validators.required, Validators.pattern(PATRON_DNI)]],

@@ -1,7 +1,8 @@
-import { Component, effect, inject, input, untracked } from '@angular/core';
+import { Component, computed, effect, inject, input, signal, untracked } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RangoAgenda } from '../../../core/models/agenda.model';
@@ -9,6 +10,7 @@ import { AgendaService } from '../../../core/services/agenda';
 import { Avisos } from '../../../core/services/avisos';
 import { Carga } from '../../../core/utils/carga';
 import { aFechaIso } from '../../../core/utils/fechas';
+import { SIN_ORDEN, ordenar } from '../../../core/utils/orden';
 import { Confirmacion } from '../../../shared/components/confirmacion/confirmacion';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
 import { DatosRangoDialogo, RangoDialogo } from '../rango-dialogo/rango-dialogo';
@@ -16,8 +18,14 @@ import { DatosRangoDialogo, RangoDialogo } from '../rango-dialogo/rango-dialogo'
 /** Rangos horarios de un médico en una fecha, con alta, modificación y baja. */
 @Component({
   selector: 'app-agenda-rangos',
-  imports: [EstadoLista, MatButtonModule, MatIconModule, MatTableModule, MatTooltipModule],
+  imports: [EstadoLista, MatButtonModule, MatIconModule, MatSortModule, MatTableModule, MatTooltipModule],
   templateUrl: './agenda-rangos.html',
+  styles: `
+    .agenda-acciones {
+      justify-content: flex-end;
+      padding-block: 12px;
+    }
+  `,
 })
 export class AgendaRangos {
   private readonly agendaService = inject(AgendaService);
@@ -33,6 +41,15 @@ export class AgendaRangos {
 
   protected readonly columnas = ['horario', 'especialidad', 'sede', 'acciones'];
   protected readonly lista = new Carga<RangoAgenda[]>([]);
+  protected readonly orden = signal(SIN_ORDEN);
+  protected readonly filas = computed(() =>
+    ordenar(this.lista.datos(), this.orden(), (rango, columna) => {
+      if (columna === 'especialidad') {
+        return rango.especialidad;
+      }
+      return columna === 'sede' ? rango.sede : rango.hora_entrada;
+    }),
+  );
 
   constructor() {
     effect(() => {

@@ -1,9 +1,20 @@
-<div class="app-layout">
-  <app-header />
+<mat-sidenav-container class="app-shell" [hasBackdrop]="compacto()">
+  <mat-sidenav
+    [mode]="compacto() ? 'over' : 'side'"
+    [opened]="sidebarVisible()"
+    [disableClose]="!compacto()"
+    (closedStart)="sidebarMovil.set(false)"
+  >
+    <app-sidebar (navegacion)="sidebarMovil.set(false)" />
+  </mat-sidenav>
 
-  <main #contenido class="app-content" cdkScrollable>
-    <router-outlet (activate)="contenido.scrollTop = 0" />
-  </main>
+  <mat-sidenav-content class="app-columna">
+    <app-header [marcaEnSidebar]="sidebarVisible() && !compacto()" (alternarMenu)="alternarSidebar()" />
 
-  <app-footer />
-</div>
+    <main #contenido class="app-contenido" cdkScrollable>
+      <router-outlet (activate)="contenido.scrollTop = 0" />
+    </main>
+
+    <app-footer />
+  </mat-sidenav-content>
+</mat-sidenav-container>

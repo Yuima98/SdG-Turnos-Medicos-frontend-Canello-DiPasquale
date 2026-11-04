@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { Paciente, RegistroHistorial } from '../../../core/models/turno.model';
 import { PacienteService } from '../../../core/services/paciente';
 import { Carga } from '../../../core/utils/carga';
@@ -10,7 +11,7 @@ import { EstadoLista } from '../../../shared/components/estado-lista/estado-list
 
 @Component({
   selector: 'app-historial',
-  imports: [DatePipe, BuscadorPacientes, EstadoLista, MatButtonModule, MatCardModule],
+  imports: [DatePipe, BuscadorPacientes, EstadoLista, MatButtonModule, MatCardModule, MatIconModule],
   templateUrl: './historial.html',
   styleUrl: './historial.scss',
 })

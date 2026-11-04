@@ -1,16 +1,20 @@
 @if (cargando()) {
   <div class="estado" role="status" aria-label="Cargando">
-    <mat-spinner diameter="40" />
+    <mat-spinner diameter="36" />
   </div>
 } @else if (error()) {
   <div class="estado" role="alert">
-    <mat-icon aria-hidden="true">error_outline</mat-icon>
+    <span class="estado-icono error"><mat-icon aria-hidden="true">error_outline</mat-icon></span>
+    <strong>No pudimos mostrar la información</strong>
     <p>{{ error() }}</p>
-    <button mat-stroked-button type="button" (click)="reintentar.emit()">Reintentar</button>
+    <button mat-stroked-button type="button" (click)="reintentar.emit()">
+      <mat-icon>refresh</mat-icon>
+      Reintentar
+    </button>
   </div>
 } @else if (vacio()) {
   <div class="estado">
-    <img src="ilustraciones/vacio.svg" alt="" width="150" height="112" />
+    <span class="estado-icono"><mat-icon aria-hidden="true">{{ iconoVacio() }}</mat-icon></span>
     <p>{{ mensajeVacio() }}</p>
   </div>
 } @else {

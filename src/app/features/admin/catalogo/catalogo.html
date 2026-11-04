@@ -1,49 +1,57 @@
 <section class="pagina">
   <div class="pagina-encabezado">
-    <h1>{{ config.titulo }}</h1>
+    <div>
+      <h1>{{ config.titulo }}</h1>
+      <p>{{ config.descripcion }}</p>
+    </div>
     <button mat-flat-button (click)="abrirFormulario()">
       <mat-icon>add</mat-icon>
       Nueva {{ config.entidad }}
     </button>
   </div>
 
-  <div class="filtros">
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Buscar</mat-label>
-      <input matInput #busqueda [value]="filtro()" (input)="filtro.set(busqueda.value)" />
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+  <div class="panel">
+    <div class="filtros">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Buscar</mat-label>
+        <input matInput #busqueda [value]="filtro()" (input)="filtro.set(busqueda.value)" />
+        <mat-icon matSuffix aria-hidden="true">search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <app-estado-lista
+      [cargando]="lista.cargando()"
+      [error]="lista.error()"
+      [vacio]="filas().length === 0"
+      [iconoVacio]="filtro() ? 'search_off' : 'inbox'"
+      [mensajeVacio]="filtro() ? 'Ningún resultado coincide con la búsqueda.' : 'Todavía no hay registros cargados.'"
+      (reintentar)="cargar()"
+    >
+      <div class="tabla-scroll">
+        <table mat-table [dataSource]="filas()" matSort (matSortChange)="orden.set($event)" class="tabla tabla-plana">
+          @for (campo of config.campos; track campo.clave; let primero = $first) {
+            <ng-container [matColumnDef]="campo.clave">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ campo.etiqueta }}</th>
+              <td mat-cell *matCellDef="let fila" [class.celda-principal]="primero">{{ fila[campo.clave] }}</td>
+            </ng-container>
+          }
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef class="columna-acciones">Acciones</th>
+            <td mat-cell *matCellDef="let fila" class="columna-acciones">
+              <button mat-icon-button matTooltip="Modificar" aria-label="Modificar" (click)="abrirFormulario(fila)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="accion-peligro" matTooltip="Eliminar" aria-label="Eliminar" (click)="eliminar(fila)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+          <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+        </table>
+      </div>
+    </app-estado-lista>
   </div>
-
-  <app-estado-lista
-    [cargando]="lista.cargando()"
-    [error]="lista.error()"
-    [vacio]="filas().length === 0"
-    [mensajeVacio]="filtro() ? 'Ningún resultado coincide con la búsqueda.' : 'Todavía no hay registros cargados.'"
-    (reintentar)="cargar()"
-  >
-    <table mat-table [dataSource]="filas()" class="tabla">
-      @for (campo of config.campos; track campo.clave) {
-        <ng-container [matColumnDef]="campo.clave">
-          <th mat-header-cell *matHeaderCellDef>{{ campo.etiqueta }}</th>
-          <td mat-cell *matCellDef="let fila">{{ fila[campo.clave] }}</td>
-        </ng-container>
-      }
-
-      <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let fila">
-          <button mat-icon-button matTooltip="Modificar" aria-label="Modificar" (click)="abrirFormulario(fila)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Eliminar" aria-label="Eliminar" (click)="eliminar(fila)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-      <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
-    </table>
-  </app-estado-lista>
 </section>

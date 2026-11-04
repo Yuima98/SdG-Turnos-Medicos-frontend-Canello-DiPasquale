@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Turno } from '../../../core/models/turno.model';
 import { Avisos } from '../../../core/services/avisos';
@@ -11,12 +12,18 @@ import { sinEspaciosVacios } from '../../../core/utils/validaciones';
 
 @Component({
   selector: 'app-atencion-dialogo',
-  imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule],
   template: `
     <h2 mat-dialog-title>Marcar como atendido</h2>
     <form [formGroup]="form" (ngSubmit)="guardar()">
       <mat-dialog-content>
-        <p>{{ turno.paciente_apellido }}, {{ turno.paciente_nombre }} — {{ turno.hora }}</p>
+        <div class="paciente-activo">
+          <mat-icon aria-hidden="true">person</mat-icon>
+          <div>
+            <strong>{{ turno.paciente_apellido }}, {{ turno.paciente_nombre }}</strong>
+            <small>{{ turno.hora }} hs</small>
+          </div>
+        </div>
         <div class="formulario">
           <mat-form-field appearance="outline">
             <mat-label>Diagnóstico</mat-label>

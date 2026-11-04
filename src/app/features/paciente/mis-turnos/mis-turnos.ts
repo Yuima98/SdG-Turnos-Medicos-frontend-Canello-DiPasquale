@@ -2,26 +2,20 @@ import { DatePipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { Turno } from '../../../core/models/turno.model';
 import { Avisos } from '../../../core/services/avisos';
 import { TurnoService } from '../../../core/services/turno';
 import { Carga } from '../../../core/utils/carga';
-import { desdeFechaIso } from '../../../core/utils/fechas';
+import { momentoTurno } from '../../../core/utils/fechas';
 import { Confirmacion } from '../../../shared/components/confirmacion/confirmacion';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
-
-function momento(turno: Turno): number {
-  const [horas, minutos] = turno.hora.split(':').map(Number);
-  const fecha = desdeFechaIso(turno.fecha);
-  fecha.setHours(horas, minutos);
-  return fecha.getTime();
-}
+import { EstadoTurnoEtiqueta } from '../../../shared/components/estado-turno/estado-turno';
 
 @Component({
   selector: 'app-mis-turnos',
-  imports: [DatePipe, RouterLink, EstadoLista, MatButtonModule, MatChipsModule, MatExpansionModule],
+  imports: [DatePipe, RouterLink, EstadoLista, EstadoTurnoEtiqueta, MatButtonModule, MatExpansionModule, MatIconModule],
   templateUrl: './mis-turnos.html',
   styleUrl: './mis-turnos.scss',
 })
@@ -36,8 +30,8 @@ export class MisTurnos {
   protected readonly turnos = computed(() => {
     const ahora = Date.now();
     const turnos = this.lista.datos();
-    const proximos = turnos.filter((t) => momento(t) >= ahora).sort((a, b) => momento(a) - momento(b));
-    const pasados = turnos.filter((t) => momento(t) < ahora).sort((a, b) => momento(b) - momento(a));
+    const proximos = turnos.filter((t) => momentoTurno(t) >= ahora).sort((a, b) => momentoTurno(a) - momentoTurno(b));
+    const pasados = turnos.filter((t) => momentoTurno(t) < ahora).sort((a, b) => momentoTurno(b) - momentoTurno(a));
     return [...proximos, ...pasados];
   });
 

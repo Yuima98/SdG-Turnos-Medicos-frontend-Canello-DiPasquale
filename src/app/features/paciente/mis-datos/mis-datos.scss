@@ -5,28 +5,16 @@
   gap: 16px;
 }
 
-.datos {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 8px 12px;
-  margin: 8px 0 0;
-
-  dt {
-    color: var(--mat-sys-on-surface-variant);
-  }
-
-  dd {
-    margin: 0;
-  }
+mat-card {
+  box-shadow: var(--sdg-sombra-1);
 }
 
-.formulario-datos {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding-top: 8px;
+mat-card-content {
+  padding-top: 12px;
+}
 
-  button {
-    align-self: flex-start;
+@media (max-width: 899.98px) {
+  .columnas {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

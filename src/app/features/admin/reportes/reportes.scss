@@ -1,34 +1,35 @@
+.filtros-reporte {
+  margin-bottom: 16px;
+
+  .filtros {
+    border-bottom: 0;
+  }
+}
+
 .tablero {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
-  margin-top: 8px;
 }
 
 .tarjeta {
-  border-top: 5px solid var(--tono);
+  box-shadow: var(--sdg-sombra-1);
 
-  &.tono-violeta {
-    grid-column: 1 / -1;
+  mat-card-header {
+    padding-bottom: 12px;
   }
 }
 
-.indicador {
+.tarjeta-ancha {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, #b4304a, #d9622b);
-  color: #ffffff;
+}
 
-  mat-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.tarjeta-tabla {
+  padding: 0;
+}
+
+@media (max-width: 899.98px) {
+  .tablero {
+    grid-template-columns: minmax(0, 1fr);
   }
-}
-
-.indicador-titulo {
-  font: var(--mat-sys-title-medium);
-}
-
-.indicador-valor {
-  font: var(--mat-sys-display-medium);
 }

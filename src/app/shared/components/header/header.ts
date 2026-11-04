@@ -1,16 +1,17 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject, input, output } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter } from 'rxjs';
 import { Auth } from '../../../core/services/auth';
 import { NotificacionService } from '../../../core/services/notificacion';
 import { ETIQUETA_ROL } from '../../../core/models/usuario.model';
-import { MENU_POR_ROL } from '../../menu-por-rol';
 import { Logo } from '../logo/logo';
+import { Migas } from '../migas/migas';
 import { Notificaciones } from '../notificaciones/notificaciones';
 
 @Component({
@@ -21,7 +22,9 @@ import { Notificaciones } from '../notificaciones/notificaciones';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    MatTooltipModule,
     Logo,
+    Migas,
     Notificaciones,
   ],
   templateUrl: './header.html',
@@ -32,9 +35,13 @@ export class Header {
   private readonly notificaciones = inject(NotificacionService);
   private readonly router = inject(Router);
 
-  protected readonly opcionesMenu = computed(() => {
-    const rol = this.auth.usuario()?.rol;
-    return rol ? MENU_POR_ROL[rol] : [];
+  /** Con la barra lateral abierta, la marca ya está a la vista y no se repite. */
+  readonly marcaEnSidebar = input(false);
+  readonly alternarMenu = output<void>();
+
+  protected readonly iniciales = computed(() => {
+    const usuario = this.auth.usuario();
+    return usuario ? `${usuario.nombre.charAt(0)}${usuario.apellido.charAt(0)}`.toUpperCase() : '';
   });
 
   protected readonly etiquetaRol = computed(() => {

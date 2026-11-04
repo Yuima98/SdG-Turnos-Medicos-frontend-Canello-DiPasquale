@@ -1,14 +1,15 @@
 <div class="auth-page">
-  <app-panel-acceso titulo="Tu salud, organizada" texto="Pedí turnos y seguí tu atención desde un solo lugar." />
-  <mat-card class="auth-card">
-    <mat-card-header>
-      <mat-card-title>Iniciar sesión</mat-card-title>
-    </mat-card-header>
+  <div class="auth-marco">
+    <app-panel-acceso titulo="Tu salud, organizada" texto="Pedí turnos y seguí tu atención desde un solo lugar." />
 
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="enviar()" class="auth-form">
+    <div class="auth-cuerpo">
+      <h1>Iniciar sesión</h1>
+      <p>Ingresá con tu DNI y contraseña.</p>
+
+      <form [formGroup]="form" (ngSubmit)="enviar()" class="formulario">
         <mat-form-field appearance="outline">
           <mat-label>DNI</mat-label>
+          <mat-icon matPrefix aria-hidden="true">badge</mat-icon>
           <input matInput formControlName="dni" inputmode="numeric" autocomplete="username" />
           @if (form.controls.dni.hasError('required')) {
             <mat-error>El DNI es obligatorio.</mat-error>
@@ -19,13 +20,29 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input matInput type="password" formControlName="password" autocomplete="current-password" />
+          <mat-icon matPrefix aria-hidden="true">lock</mat-icon>
+          <input
+            matInput
+            [type]="verPassword() ? 'text' : 'password'"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            [matTooltip]="verPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            [attr.aria-label]="verPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            (click)="verPassword.set(!verPassword())"
+          >
+            <mat-icon>{{ verPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
           @if (form.controls.password.hasError('required')) {
             <mat-error>La contraseña es obligatoria.</mat-error>
           }
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="enviando()">
+        <button mat-flat-button type="submit" [disabled]="enviando()">
           @if (enviando()) {
             <mat-spinner diameter="20" />
           } @else {
@@ -33,11 +50,11 @@
           }
         </button>
       </form>
-    </mat-card-content>
 
-    <mat-card-footer class="auth-footer">
-      <span>¿No tenés cuenta?</span>
-      <a routerLink="/registro">Registrate</a>
-    </mat-card-footer>
-  </mat-card>
+      <div class="auth-pie">
+        <span>¿No tenés cuenta?</span>
+        <a routerLink="/registro">Registrate</a>
+      </div>
+    </div>
+  </div>
 </div>

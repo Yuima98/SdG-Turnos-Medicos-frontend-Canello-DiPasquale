@@ -1,73 +1,87 @@
 <section class="pagina">
   <div class="pagina-encabezado">
-    <h1>Auditoría</h1>
+    <div>
+      <h1>Auditoría</h1>
+      <p>Revisá las acciones sensibles.</p>
+    </div>
   </div>
 
-  <form class="filtros" [formGroup]="filtros">
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Usuario</mat-label>
-      <input matInput formControlName="usuario" placeholder="Nombre, apellido o DNI" />
-    </mat-form-field>
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Entidad</mat-label>
-      <mat-select formControlName="entidad">
-        <mat-option [value]="null">Todas</mat-option>
-        @for (entidad of entidades; track entidad) {
-          <mat-option [value]="entidad">{{ entidad }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Rango de fechas</mat-label>
-      <mat-date-range-input [rangePicker]="rango">
-        <input matStartDate formControlName="desde" placeholder="Desde" />
-        <input matEndDate formControlName="hasta" placeholder="Hasta" />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matIconSuffix [for]="rango" />
-      <mat-date-range-picker #rango />
-    </mat-form-field>
-  </form>
+  <div class="panel">
+    <form class="filtros" [formGroup]="filtros">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="usuario" placeholder="Nombre, apellido o DNI" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Entidad</mat-label>
+        <mat-select formControlName="entidad">
+          <mat-option [value]="null">Todas</mat-option>
+          @for (entidad of entidades; track entidad) {
+            <mat-option [value]="entidad">{{ entidad }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Rango de fechas</mat-label>
+        <mat-date-range-input [rangePicker]="rango">
+          <input matStartDate formControlName="desde" placeholder="Desde" />
+          <input matEndDate formControlName="hasta" placeholder="Hasta" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="rango" />
+        <mat-date-range-picker #rango />
+      </mat-form-field>
+    </form>
 
-  <app-estado-lista
-    [cargando]="lista.cargando()"
-    [error]="lista.error()"
-    [vacio]="lista.datos().items.length === 0"
-    mensajeVacio="No hay registros de auditoría para estos filtros."
-    (reintentar)="cargar()"
-  >
-    <table mat-table [dataSource]="lista.datos().items" class="tabla">
-      <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef>Fecha</th>
-        <td mat-cell *matCellDef="let registro">{{ registro.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
-      </ng-container>
-      <ng-container matColumnDef="usuario">
-        <th mat-header-cell *matHeaderCellDef>Usuario</th>
-        <td mat-cell *matCellDef="let registro">{{ registro.usuario_apellido }}, {{ registro.usuario_nombre }}</td>
-      </ng-container>
-      <ng-container matColumnDef="accion">
-        <th mat-header-cell *matHeaderCellDef>Acción</th>
-        <td mat-cell *matCellDef="let registro">{{ registro.accion }}</td>
-      </ng-container>
-      <ng-container matColumnDef="entidad">
-        <th mat-header-cell *matHeaderCellDef>Entidad</th>
-        <td mat-cell *matCellDef="let registro">{{ registro.entidad }}</td>
-      </ng-container>
-      <ng-container matColumnDef="detalle">
-        <th mat-header-cell *matHeaderCellDef>Detalle</th>
-        <td mat-cell *matCellDef="let registro">{{ registro.detalle ?? '—' }}</td>
-      </ng-container>
+    <app-estado-lista
+      [cargando]="lista.cargando()"
+      [error]="lista.error()"
+      [vacio]="lista.datos().items.length === 0"
+      iconoVacio="fact_check"
+      mensajeVacio="No hay registros de auditoría para estos filtros."
+      (reintentar)="cargar()"
+    >
+      <div class="tabla-scroll">
+        <table mat-table [dataSource]="lista.datos().items" class="tabla">
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let registro">{{ registro.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef>Usuario</th>
+            <td mat-cell *matCellDef="let registro" class="celda-principal">
+              {{ registro.usuario_apellido }}, {{ registro.usuario_nombre }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="accion">
+            <th mat-header-cell *matHeaderCellDef>Acción</th>
+            <td mat-cell *matCellDef="let registro">
+              <app-etiqueta [tono]="etiquetaAccion[asAccion(registro.accion)].tono" [icono]="etiquetaAccion[asAccion(registro.accion)].icono">
+                {{ etiquetaAccion[asAccion(registro.accion)].texto }}
+              </app-etiqueta>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="entidad">
+            <th mat-header-cell *matHeaderCellDef>Entidad</th>
+            <td mat-cell *matCellDef="let registro">{{ registro.entidad }}</td>
+          </ng-container>
+          <ng-container matColumnDef="detalle">
+            <th mat-header-cell *matHeaderCellDef>Detalle</th>
+            <td mat-cell *matCellDef="let registro">{{ registro.detalle ?? '—' }}</td>
+          </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-      <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
-    </table>
-  </app-estado-lista>
+          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+          <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+        </table>
+      </div>
+    </app-estado-lista>
 
-  <mat-paginator
-    [length]="lista.datos().total"
-    [pageIndex]="pagina() - 1"
-    [pageSize]="limite()"
-    [pageSizeOptions]="[10, 25, 50]"
-    (page)="cambiarPagina($event)"
-    aria-label="Paginación de auditoría"
-  />
+    <mat-paginator
+      [length]="lista.datos().total"
+      [pageIndex]="pagina() - 1"
+      [pageSize]="limite()"
+      [pageSizeOptions]="[10, 25, 50]"
+      (page)="cambiarPagina($event)"
+      aria-label="Paginación de auditoría"
+    />
+  </div>
 </section>

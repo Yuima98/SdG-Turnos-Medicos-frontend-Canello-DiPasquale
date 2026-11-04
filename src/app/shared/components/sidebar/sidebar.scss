@@ -1,0 +1,102 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: #ffffff;
+}
+
+.sidebar-marca {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  height: var(--sdg-alto-header);
+  padding: 0 20px;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+  color: inherit;
+  text-decoration: none;
+
+  span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  strong {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  small {
+    font-size: 0.72rem;
+    color: rgb(255 255 255 / 72%);
+  }
+}
+
+.sidebar-nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px 12px;
+
+  @include mat.list-overrides(
+    (
+      active-indicator-shape: var(--sdg-radio-s),
+      active-indicator-color: rgb(255 255 255 / 14%),
+      list-item-container-shape: var(--sdg-radio-s),
+      list-item-one-line-container-height: 44px,
+      list-item-label-text-color: rgb(255 255 255 / 86%),
+      list-item-label-text-size: 0.875rem,
+      list-item-label-text-weight: 500,
+      list-item-leading-icon-color: rgb(255 255 255 / 72%),
+      list-item-hover-label-text-color: #ffffff,
+      list-item-hover-leading-icon-color: #ffffff,
+      list-item-focus-label-text-color: #ffffff,
+      list-item-hover-state-layer-color: #ffffff,
+      list-item-focus-state-layer-color: #ffffff,
+    )
+  );
+
+  a {
+    margin-bottom: 2px;
+  }
+
+  // El módulo activo se marca con el ícono relleno y una barra verde
+  a[aria-current='page'] {
+    box-shadow: inset 3px 0 0 #4cc3b5;
+
+    mat-icon {
+      color: #ffffff;
+      font-variation-settings: 'FILL' 1;
+    }
+  }
+}
+
+.sidebar-grupo {
+  margin: 16px 12px 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 64%);
+}
+
+.sidebar-sede {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 14px 20px;
+  border-top: 1px solid rgb(255 255 255 / 10%);
+  font-size: 0.8rem;
+  color: rgb(255 255 255 / 82%);
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}

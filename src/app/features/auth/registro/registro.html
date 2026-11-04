@@ -1,17 +1,17 @@
 <div class="auth-page">
-  <app-panel-acceso titulo="Creá tu cuenta" texto="Con tu registro ya podés pedir tu primer turno." />
-  <mat-card class="auth-card">
-    <mat-card-header>
-      <mat-card-title>Registro de paciente</mat-card-title>
-    </mat-card-header>
+  <div class="auth-marco auth-marco-amplio">
+    <app-panel-acceso titulo="Creá tu cuenta" texto="Con tu registro ya podés pedir tu primer turno." />
 
-    <mat-card-content>
+    <div class="auth-cuerpo">
+      <h1>Registro de paciente</h1>
+      <p>Completá tus datos para crear la cuenta.</p>
+
       <app-paciente-form textoBoton="Registrarme" [enviando]="enviando()" (guardar)="registrar($event)" />
-    </mat-card-content>
 
-    <mat-card-footer class="auth-footer">
-      <span>¿Ya tenés cuenta?</span>
-      <a routerLink="/login">Iniciar sesión</a>
-    </mat-card-footer>
-  </mat-card>
+      <div class="auth-pie">
+        <span>¿Ya tenés cuenta?</span>
+        <a routerLink="/login">Iniciar sesión</a>
+      </div>
+    </div>
+  </div>
 </div>

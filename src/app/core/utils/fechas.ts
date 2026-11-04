@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDateFormats, NativeDateAdapter } from '@angular/material/core';
+import { Turno } from '../models/turno.model';
 
 /** Fecha local en el formato "YYYY-MM-DD" que usa la API. */
 export function aFechaIso(fecha: Date): string {
@@ -13,6 +14,14 @@ export function aFechaIso(fecha: Date): string {
 export function desdeFechaIso(fecha: string): Date {
   const [anio, mes, dia] = fecha.slice(0, 10).split('-').map(Number);
   return new Date(anio, mes - 1, dia);
+}
+
+/** Instante en que empieza un turno, para ordenarlo o compararlo con el momento actual. */
+export function momentoTurno(turno: Turno): number {
+  const [horas, minutos] = turno.hora.split(':').map(Number);
+  const fecha = desdeFechaIso(turno.fecha);
+  fecha.setHours(horas, minutos);
+  return fecha.getTime();
 }
 
 export function calcularEdad(fechaNacimiento: string, referencia = new Date()): number {

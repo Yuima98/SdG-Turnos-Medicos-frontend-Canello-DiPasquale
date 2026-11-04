@@ -1,0 +1,243 @@
+// Estructura común de las pantallas
+.pagina {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--sdg-gutter);
+}
+
+.pagina-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font: 600 1.5rem / 2rem var(--mat-sys-body-medium-font);
+    letter-spacing: -0.01em;
+    color: var(--sdg-petroleo-800);
+  }
+
+  p {
+    margin: 2px 0 0;
+    color: var(--sdg-texto-secundario);
+  }
+}
+
+// Contenedor blanco de listados: reúne filtros, estado, tabla y paginador
+.panel {
+  overflow: hidden;
+  border: 1px solid var(--sdg-borde);
+  border-radius: var(--sdg-radio-m);
+  background: var(--sdg-superficie);
+  box-shadow: var(--sdg-sombra-1);
+}
+
+.panel-relleno {
+  padding: 20px;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--sdg-borde);
+
+  mat-form-field {
+    width: 220px;
+  }
+
+  > button {
+    height: 48px;
+  }
+}
+
+.tabla-scroll {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  min-width: 640px;
+
+  .mat-mdc-header-row {
+    background: var(--sdg-superficie-suave);
+  }
+
+  .mat-mdc-header-cell {
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .mat-mdc-row {
+    transition: background-color var(--sdg-transicion);
+  }
+
+  tbody tr:hover td {
+    background: var(--sdg-superficie-suave);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .mat-mdc-icon-button {
+    vertical-align: middle;
+    color: var(--sdg-texto-secundario);
+  }
+
+  .accion-peligro {
+    color: var(--sdg-peligro);
+  }
+
+  .celda-principal {
+    font-weight: 500;
+    color: var(--sdg-texto);
+  }
+
+  .columna-acciones {
+    width: 1%;
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+// Grilla de tarjetas de indicadores: dos columnas en teléfonos, una sola fila desde tablet
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 599.98px) {
+  .indicadores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+// Tablas dentro de una tarjeta o diálogo
+.tabla-plana {
+  min-width: 420px;
+}
+
+.mat-mdc-paginator {
+  border-top: 1px solid var(--sdg-borde);
+}
+
+// Formularios
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.formulario-fila {
+  display: flex;
+  gap: 12px;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.formulario-error {
+  margin: -8px 0 12px 16px;
+  color: var(--mat-sys-error);
+  font: var(--mat-sys-body-small);
+}
+
+.formulario-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+@media (max-width: 599.98px) {
+  .filtros mat-form-field {
+    width: 100%;
+  }
+
+  .formulario-fila {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+// Lista de pares etiqueta / valor (fichas y resúmenes)
+.ficha {
+  display: grid;
+  grid-template-columns: minmax(110px, 170px) minmax(0, 1fr);
+  gap: 10px 16px;
+  margin: 0;
+
+  dt {
+    color: var(--sdg-texto-secundario);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .ficha {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+
+    dd {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+// Paciente con el que se está trabajando
+.paciente-activo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--sdg-borde);
+  border-radius: var(--sdg-radio-m);
+  background: var(--sdg-superficie);
+
+  mat-icon {
+    color: var(--sdg-verde-600);
+  }
+
+  strong {
+    display: block;
+    font-weight: 600;
+  }
+
+  small {
+    color: var(--sdg-texto-secundario);
+  }
+}
+
+.nota-informativa {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-radius: var(--sdg-radio-s);
+  background: var(--sdg-info-suave);
+  color: var(--sdg-petroleo-800);
+
+  mat-icon {
+    flex: none;
+    color: var(--sdg-info);
+  }
+}

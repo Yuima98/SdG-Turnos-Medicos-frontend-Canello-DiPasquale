@@ -11,7 +11,10 @@ import { PacienteForm } from '../../../shared/components/paciente-form/paciente-
   template: `
     <section class="pagina">
       <div class="pagina-encabezado">
-        <h1>Alta de paciente</h1>
+        <div>
+          <h1>Alta de paciente</h1>
+          <p>Registrá un paciente nuevo.</p>
+        </div>
       </div>
       <mat-card appearance="outlined" class="tarjeta-formulario">
         <mat-card-content>
@@ -22,7 +25,8 @@ import { PacienteForm } from '../../../shared/components/paciente-form/paciente-
   `,
   styles: `
     .tarjeta-formulario {
-      max-width: 520px;
+      max-width: 760px;
+      box-shadow: var(--sdg-sombra-1);
     }
   `,
 })

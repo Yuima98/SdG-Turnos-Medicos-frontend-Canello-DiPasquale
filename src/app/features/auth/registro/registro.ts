@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
 import { RegistroRequest } from '../../../core/models/auth.model';
 import { Auth } from '../../../core/services/auth';
 import { Avisos } from '../../../core/services/avisos';
@@ -9,9 +8,8 @@ import { PanelAcceso } from '../../../shared/components/panel-acceso/panel-acces
 
 @Component({
   selector: 'app-registro',
-  imports: [RouterLink, MatCardModule, PacienteForm, PanelAcceso],
+  imports: [RouterLink, PacienteForm, PanelAcceso],
   templateUrl: './registro.html',
-  styleUrl: './registro.scss',
 })
 export class Registro {
   private readonly auth = inject(Auth);

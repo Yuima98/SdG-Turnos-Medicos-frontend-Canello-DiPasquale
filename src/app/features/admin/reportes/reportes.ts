@@ -1,4 +1,3 @@
-import { DecimalPipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -13,14 +12,15 @@ import { Carga } from '../../../core/utils/carga';
 import { aFechaIso } from '../../../core/utils/fechas';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
 import { GraficoBarras } from '../../../shared/components/grafico-barras/grafico-barras';
+import { DatosIndicador, Indicador } from '../../../shared/components/indicador/indicador';
 
 @Component({
   selector: 'app-reportes',
   imports: [
-    DecimalPipe,
     ReactiveFormsModule,
     EstadoLista,
     GraficoBarras,
+    Indicador,
     MatCardModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -39,6 +39,25 @@ export class Reportes {
   protected readonly filtros = this.fb.group({
     desde: [null as Date | null],
     hasta: [null as Date | null],
+  });
+
+  protected readonly indicadores = computed((): DatosIndicador[] => {
+    const cancelacion = this.reportes.datos()?.cancelacion;
+    if (!cancelacion) {
+      return [];
+    }
+    const { total_turnos, turnos_cancelados, tasa_cancelacion } = cancelacion;
+    return [
+      { etiqueta: 'Turnos del período', valor: total_turnos, icono: 'calendar_month' },
+      { etiqueta: 'Turnos cancelados', valor: turnos_cancelados, icono: 'event_busy' },
+      {
+        etiqueta: 'Tasa de cancelación',
+        valor: tasa_cancelacion,
+        sufijo: ' %',
+        icono: 'percent',
+        detalle: `${turnos_cancelados} cancelados de ${total_turnos} turnos`,
+      },
+    ];
   });
 
   protected readonly especialidades = computed(() => {

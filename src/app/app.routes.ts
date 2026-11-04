@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { Home } from './features/home/home';
-import { Login } from './features/auth/login/login';
-import { Registro } from './features/auth/registro/registro';
 import { invitadoGuard, rolGuard } from './core/guards/auth-guard';
 import {
   CONFIG_COBERTURAS,
@@ -13,8 +11,16 @@ const catalogo = () => import('./features/admin/catalogo/catalogo').then((m) => 
 
 export const routes: Routes = [
   { path: '', component: Home },
-  { path: 'login', component: Login, canActivate: [invitadoGuard] },
-  { path: 'registro', component: Registro, canActivate: [invitadoGuard] },
+  {
+    path: 'login',
+    canActivate: [invitadoGuard],
+    loadComponent: () => import('./features/auth/login/login').then((m) => m.Login),
+  },
+  {
+    path: 'registro',
+    canActivate: [invitadoGuard],
+    loadComponent: () => import('./features/auth/registro/registro').then((m) => m.Registro),
+  },
   {
     path: 'admin',
     canActivate: [rolGuard('admin')],

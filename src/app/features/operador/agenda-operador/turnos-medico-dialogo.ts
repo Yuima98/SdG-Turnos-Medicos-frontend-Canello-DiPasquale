@@ -27,13 +27,15 @@ interface DatosDialogo {
         [cargando]="lista.cargando()"
         [error]="lista.error()"
         [vacio]="lista.datos().length === 0"
+        iconoVacio="event_busy"
         mensajeVacio="No hay turnos confirmados para esta fecha."
         (reintentar)="cargar()"
       >
-        <table mat-table [dataSource]="lista.datos()" class="tabla">
+        <div class="tabla-scroll">
+        <table mat-table [dataSource]="lista.datos()" class="tabla tabla-plana">
           <ng-container matColumnDef="hora">
             <th mat-header-cell *matHeaderCellDef>Hora</th>
-            <td mat-cell *matCellDef="let turno">{{ turno.hora }}</td>
+            <td mat-cell *matCellDef="let turno" class="celda-principal">{{ turno.hora }}</td>
           </ng-container>
           <ng-container matColumnDef="paciente">
             <th mat-header-cell *matHeaderCellDef>Paciente</th>
@@ -44,14 +46,15 @@ interface DatosDialogo {
             <td mat-cell *matCellDef="let turno">{{ turno.especialidad }}</td>
           </ng-container>
           <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>Acciones</th>
-            <td mat-cell *matCellDef="let turno">
-              <button mat-stroked-button (click)="cancelar(turno)">Cancelar turno</button>
+            <th mat-header-cell *matHeaderCellDef class="columna-acciones">Acciones</th>
+            <td mat-cell *matCellDef="let turno" class="columna-acciones">
+              <button mat-stroked-button class="boton-peligro" (click)="cancelar(turno)">Cancelar turno</button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="columnas"></tr>
           <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
         </table>
+        </div>
       </app-estado-lista>
     </mat-dialog-content>
     <mat-dialog-actions align="end">

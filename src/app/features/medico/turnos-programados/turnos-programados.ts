@@ -1,13 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Sede } from '../../../core/models/sede.model';
@@ -17,8 +17,10 @@ import { SedeService } from '../../../core/services/sede';
 import { TurnoService } from '../../../core/services/turno';
 import { Carga } from '../../../core/utils/carga';
 import { aFechaIso, calcularEdad } from '../../../core/utils/fechas';
+import { SIN_ORDEN, ordenar } from '../../../core/utils/orden';
 import { Confirmacion } from '../../../shared/components/confirmacion/confirmacion';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
+import { EstadoTurnoEtiqueta } from '../../../shared/components/estado-turno/estado-turno';
 import { AtencionDialogo } from './atencion-dialogo';
 
 @Component({
@@ -26,13 +28,14 @@ import { AtencionDialogo } from './atencion-dialogo';
   imports: [
     DatePipe,
     EstadoLista,
+    EstadoTurnoEtiqueta,
     MatButtonModule,
-    MatChipsModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSortModule,
     MatTableModule,
     MatTooltipModule,
   ],
@@ -53,6 +56,18 @@ export class TurnosProgramados {
   protected readonly idSede = signal<number | null>(null);
   protected readonly desplegado = signal<number | null>(null);
   protected readonly edad = calcularEdad;
+  protected readonly orden = signal(SIN_ORDEN);
+  protected readonly filas = computed(() =>
+    ordenar(this.lista.datos(), this.orden(), (turno, columna) => {
+      const valores: Record<string, string> = {
+        hora: turno.hora,
+        paciente: `${turno.paciente_apellido} ${turno.paciente_nombre}`,
+        sede: turno.sede,
+        estado: turno.estado,
+      };
+      return valores[columna];
+    }),
+  );
 
   constructor() {
     this.sedeService.listar().subscribe({

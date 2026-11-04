@@ -1,0 +1,223 @@
+// Tema de Angular Material: usa solo la API pública de overrides, sin pisar clases internas.
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$cyan-palette,
+        tertiary: mat.$azure-palette,
+      ),
+      typography: (
+        plain-family: 'Inter, Roboto, sans-serif',
+        brand-family: 'Inter, Roboto, sans-serif',
+        bold-weight: 600,
+        medium-weight: 500,
+        regular-weight: 400,
+      ),
+      density: 0,
+    )
+  );
+
+  @include mat.theme-overrides(
+    (
+      primary: #124c66,
+      on-primary: #ffffff,
+      primary-container: #e4f0f9,
+      on-primary-container: #0a2d3d,
+      secondary: #0f7c74,
+      on-secondary: #ffffff,
+      secondary-container: #def3f0,
+      on-secondary-container: #0b4f4a,
+      tertiary: #1b6ca8,
+      on-tertiary: #ffffff,
+      background: #f3f6f8,
+      surface: #ffffff,
+      on-surface: #16262f,
+      on-surface-variant: #4a5d68,
+      surface-container-lowest: #ffffff,
+      surface-container-low: #ffffff,
+      surface-container: #ffffff,
+      surface-container-high: #f3f6f8,
+      surface-container-highest: #e9eef1,
+      outline: #b9c7cf,
+      outline-variant: #dde5ea,
+      error: #b42d2a,
+      on-error: #ffffff,
+      error-container: #fbe8e7,
+    )
+  );
+
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 8px,
+      filled-container-height: 40px,
+      filled-label-text-weight: 600,
+      outlined-container-shape: 8px,
+      outlined-container-height: 40px,
+      outlined-label-text-weight: 600,
+      outlined-outline-color: var(--sdg-borde-fuerte),
+      text-container-shape: 8px,
+      text-container-height: 40px,
+      text-label-text-weight: 600,
+    )
+  );
+
+  @include mat.card-overrides(
+    (
+      outlined-container-color: var(--sdg-superficie),
+      outlined-container-shape: var(--sdg-radio-m),
+      outlined-outline-color: var(--sdg-borde),
+      title-text-weight: 600,
+      title-text-size: 16px,
+    )
+  );
+
+  @include mat.form-field-overrides(
+    (
+      container-height: 48px,
+      container-vertical-padding: 12px,
+      container-text-size: 14px,
+      outlined-label-text-size: 14px,
+      outlined-container-shape: var(--sdg-radio-s),
+      outlined-outline-color: var(--sdg-borde-fuerte),
+      outlined-hover-outline-color: var(--sdg-petroleo-600),
+      outlined-focus-outline-color: var(--sdg-azul-600),
+      outlined-focus-label-text-color: var(--sdg-azul-600),
+    )
+  );
+
+  @include mat.select-overrides(
+    (
+      trigger-text-size: 14px,
+    )
+  );
+
+  @include mat.table-overrides(
+    (
+      background-color: transparent,
+      header-container-height: 44px,
+      header-headline-color: var(--sdg-texto-secundario),
+      header-headline-size: 12px,
+      header-headline-weight: 600,
+      header-headline-tracking: 0.04em,
+      row-item-container-height: 52px,
+      row-item-outline-color: var(--sdg-borde),
+    )
+  );
+
+  @include mat.paginator-overrides(
+    (
+      container-background-color: transparent,
+      container-text-color: var(--sdg-texto-secundario),
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: var(--sdg-radio-l),
+      container-max-width: min(760px, calc(100vw - 32px)),
+      container-small-max-width: calc(100vw - 32px),
+      subhead-weight: 600,
+      subhead-size: 20px,
+      subhead-color: var(--sdg-petroleo-800),
+    )
+  );
+
+  @include mat.expansion-overrides(
+    (
+      container-shape: var(--sdg-radio-m),
+      container-elevation-shadow: none,
+      header-text-weight: 600,
+    )
+  );
+
+  @include mat.stepper-overrides(
+    (
+      container-color: transparent,
+      header-height: 52px,
+      header-icon-background-color: var(--sdg-texto-tenue),
+      header-selected-state-icon-background-color: var(--sdg-petroleo-700),
+      header-done-state-icon-background-color: var(--sdg-verde-600),
+      header-edit-state-icon-background-color: var(--sdg-verde-600),
+      header-selected-state-label-text-weight: 600,
+    )
+  );
+
+  @include mat.menu-overrides(
+    (
+      container-shape: var(--sdg-radio-m),
+      container-color: var(--sdg-superficie),
+    )
+  );
+
+  @include mat.snack-bar-overrides(
+    (
+      container-shape: var(--sdg-radio-s),
+      container-color: var(--sdg-petroleo-800),
+      supporting-text-color: #ffffff,
+      button-color: #ffffff,
+    )
+  );
+
+  @include mat.tooltip-overrides(
+    (
+      container-color: var(--sdg-petroleo-900),
+      supporting-text-color: #ffffff,
+    )
+  );
+
+  @include mat.sidenav-overrides(
+    (
+      container-shape: 0,
+      container-width: 264px,
+      container-background-color: var(--sdg-petroleo-800),
+      container-text-color: #ffffff,
+      content-background-color: var(--sdg-fondo),
+      content-text-color: var(--sdg-texto),
+    )
+  );
+}
+
+// Avisos: el color acompaña al tipo de mensaje
+.aviso-exito {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: var(--sdg-exito),
+    )
+  );
+}
+
+.aviso-error {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: var(--sdg-peligro),
+    )
+  );
+}
+
+// Acción destructiva: se usa en los diálogos de confirmación
+.boton-peligro {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--sdg-peligro),
+      filled-label-text-color: #ffffff,
+      outlined-label-text-color: var(--sdg-peligro),
+      outlined-state-layer-color: var(--sdg-peligro),
+      outlined-ripple-color: rgb(180 45 42 / 12%),
+    )
+  );
+}
+
+// Botón de ícono destructivo en las tablas
+.accion-peligro {
+  @include mat.icon-button-overrides(
+    (
+      icon-color: var(--sdg-peligro),
+      state-layer-color: var(--sdg-peligro),
+      ripple-color: rgb(180 45 42 / 12%),
+    )
+  );
+}

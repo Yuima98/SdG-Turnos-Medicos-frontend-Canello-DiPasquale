@@ -3,7 +3,7 @@
   [error]="opciones.error()"
   (reintentar)="cargarOpciones()"
 >
-  <form [formGroup]="form">
+  <form [formGroup]="form" class="panel panel-relleno">
     <mat-stepper orientation="vertical" linear>
       <mat-step label="Especialidad" [stepControl]="form.controls.idEspecialidad">
         <mat-form-field appearance="outline" class="campo">
@@ -126,7 +126,7 @@
           <mat-error>La nota es obligatoria.</mat-error>
         </mat-form-field>
 
-        <dl class="resumen">
+        <dl class="ficha resumen">
           <dt>Especialidad</dt>
           <dd>{{ resumen().especialidad }}</dd>
           <dt>Médico</dt>
