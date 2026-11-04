@@ -48,7 +48,7 @@
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td mat-cell *matCellDef="let turno">
-          <span class="estado-turno" [class]="turno.estado">{{ turno.estado }}</span>
+          <mat-chip-set><mat-chip class="estado-turno" [class]="turno.estado" disableRipple>{{ turno.estado }}</mat-chip></mat-chip-set>
         </td>
       </ng-container>
       <ng-container matColumnDef="acciones">

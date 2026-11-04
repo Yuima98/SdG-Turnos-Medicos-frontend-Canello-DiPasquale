@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Turno } from '../../../core/models/turno.model';
 import { Avisos } from '../../../core/services/avisos';
@@ -20,7 +21,7 @@ function momento(turno: Turno): number {
 
 @Component({
   selector: 'app-mis-turnos',
-  imports: [DatePipe, RouterLink, EstadoLista, MatButtonModule, MatExpansionModule],
+  imports: [DatePipe, RouterLink, EstadoLista, MatButtonModule, MatChipsModule, MatExpansionModule],
   templateUrl: './mis-turnos.html',
   styleUrl: './mis-turnos.scss',
 })

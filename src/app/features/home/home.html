@@ -7,14 +7,16 @@
 
     <div class="accesos">
       @for (acceso of accesos(); track acceso.ruta) {
-        <a class="acceso" [routerLink]="acceso.ruta" [class]="'tono-' + acceso.tono">
-          <span class="acceso-icono"><mat-icon aria-hidden="true">{{ acceso.icono }}</mat-icon></span>
-          <span class="acceso-texto">
-            <strong>{{ acceso.etiqueta }}</strong>
-            <small>{{ acceso.descripcion }}</small>
-          </span>
-          <mat-icon class="acceso-flecha" aria-hidden="true">arrow_forward</mat-icon>
-        </a>
+        <mat-card appearance="outlined" class="acceso" [class]="'tono-' + acceso.tono">
+          <a class="acceso-enlace" [routerLink]="acceso.ruta">
+            <span class="acceso-icono"><mat-icon aria-hidden="true">{{ acceso.icono }}</mat-icon></span>
+            <span class="acceso-texto">
+              <strong>{{ acceso.etiqueta }}</strong>
+              <small>{{ acceso.descripcion }}</small>
+            </span>
+            <mat-icon class="acceso-flecha" aria-hidden="true">arrow_forward</mat-icon>
+          </a>
+        </mat-card>
       }
     </div>
   </section>
@@ -36,20 +38,26 @@
   </section>
 
   <section class="beneficios">
-    <article class="beneficio tono-azul">
-      <span class="acceso-icono"><mat-icon aria-hidden="true">event_available</mat-icon></span>
-      <h2>Turnos online</h2>
-      <p>Reservá y gestioná tus turnos médicos cuando quieras.</p>
-    </article>
-    <article class="beneficio tono-verde">
-      <span class="acceso-icono"><mat-icon aria-hidden="true">badge</mat-icon></span>
-      <h2>Tus datos al día</h2>
-      <p>Accedé a tu perfil y datos de cobertura en todo momento.</p>
-    </article>
-    <article class="beneficio tono-naranja">
-      <span class="acceso-icono"><mat-icon aria-hidden="true">notifications_active</mat-icon></span>
-      <h2>Avisos</h2>
-      <p>Recibí notificaciones sobre tus próximos turnos.</p>
-    </article>
+    <mat-card appearance="outlined" class="beneficio tono-azul">
+      <mat-card-header>
+        <span mat-card-avatar class="acceso-icono"><mat-icon aria-hidden="true">event_available</mat-icon></span>
+        <h2 mat-card-title>Turnos online</h2>
+        <p mat-card-subtitle>Reservá y gestioná tus turnos médicos cuando quieras.</p>
+      </mat-card-header>
+    </mat-card>
+    <mat-card appearance="outlined" class="beneficio tono-verde">
+      <mat-card-header>
+        <span mat-card-avatar class="acceso-icono"><mat-icon aria-hidden="true">badge</mat-icon></span>
+        <h2 mat-card-title>Tus datos al día</h2>
+        <p mat-card-subtitle>Accedé a tu perfil y datos de cobertura en todo momento.</p>
+      </mat-card-header>
+    </mat-card>
+    <mat-card appearance="outlined" class="beneficio tono-naranja">
+      <mat-card-header>
+        <span mat-card-avatar class="acceso-icono"><mat-icon aria-hidden="true">notifications_active</mat-icon></span>
+        <h2 mat-card-title>Avisos</h2>
+        <p mat-card-subtitle>Recibí notificaciones sobre tus próximos turnos.</p>
+      </mat-card-header>
+    </mat-card>
   </section>
 }

@@ -51,7 +51,7 @@ body {
 .pagina {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 16px 24px;
 }
 
 .pagina-encabezado {
@@ -159,25 +159,25 @@ body {
 }
 
 .estado-turno {
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font: var(--mat-sys-label-medium);
+  --mat-chip-container-height: 24px;
+  --mat-chip-container-shape-radius: 12px;
+  --mat-chip-outline-width: 0;
+
   text-transform: capitalize;
 
   &.confirmado {
-    color: #0b5394;
-    background: #d9e8f7;
+    --mat-chip-elevated-container-color: #d9e8f7;
+    --mat-chip-label-text-color: #0b5394;
   }
 
   &.atendido {
-    color: #1b6b34;
-    background: #d8f0df;
+    --mat-chip-elevated-container-color: #d8f0df;
+    --mat-chip-label-text-color: #1b6b34;
   }
 
   &.cancelado {
-    color: #a11d1d;
-    background: #fadcdc;
+    --mat-chip-elevated-container-color: #fadcdc;
+    --mat-chip-label-text-color: #a11d1d;
   }
 }
 

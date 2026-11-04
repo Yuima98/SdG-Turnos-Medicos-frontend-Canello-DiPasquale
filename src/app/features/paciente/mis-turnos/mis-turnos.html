@@ -18,7 +18,7 @@
             <mat-panel-title>{{ turno.fecha | date: 'dd/MM/yyyy' }} — {{ turno.hora }}</mat-panel-title>
             <mat-panel-description>
               {{ turno.especialidad }}
-              <span class="estado-turno" [class]="turno.estado">{{ turno.estado }}</span>
+              <mat-chip-set><mat-chip class="estado-turno" [class]="turno.estado" disableRipple>{{ turno.estado }}</mat-chip></mat-chip-set>
             </mat-panel-description>
           </mat-expansion-panel-header>
 

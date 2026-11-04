@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +27,7 @@ import { AtencionDialogo } from './atencion-dialogo';
     DatePipe,
     EstadoLista,
     MatButtonModule,
+    MatChipsModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
