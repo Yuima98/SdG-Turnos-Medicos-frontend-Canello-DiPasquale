@@ -29,7 +29,7 @@ mysql -u root -p clinica_bdd < clinica_bdd.sql
 mysql -u root -p clinica_bdd < datos_demo.sql
 ```
 
-- `clinica_bdd.sql` crea las tablas. Si ya tenían la base de una entrega anterior hay que recrearla, porque cambiaron los tipos de los ids y de la nota del turno.
+- `clinica_bdd.sql` crea las tablas. Si ya tenían la base de una entrega anterior hay que recrearla, porque cambiaron los tipos de los ids, la nota del turno y se agregaron restricciones `UNIQUE`.
 - `datos_demo.sql` carga los datos de prueba: tres sedes, tres médicos entre los que Ana Lopez atiende en dos sedes, y turnos confirmados, cancelados y atendidos. Las fechas son relativas al día en que se ejecuta, así que conviene correrlo de nuevo antes de la defensa. Se puede repetir las veces que haga falta.
 
 En XAMPP, `mysql` está en `C:\xampp\mysql\bin\mysql.exe` y el usuario `root` no tiene contraseña por defecto (en ese caso, sacar el `-p`).
@@ -105,6 +105,7 @@ Todos usan la contraseña `Password123!` y se ingresa con el DNI.
 - **Listados:** `Carga` guarda el dato, el indicador de carga y el error de cada pedido, y `EstadoLista` los muestra de la misma forma en todas las pantallas, con un botón para reintentar.
 - **Reutilización:** `PacienteForm` se usa en el registro y en el alta del operador; `NuevoTurno`, en el paciente y en el operador con la sede fija; `AgendaRangos` y `RangoDialogo`, en el médico y en el operador; `Catalogo`, en sedes, especialidades y coberturas.
 - **Duración del turno:** 30 minutos, definida en el backend. El alta de turno y la consulta de horarios libres aplican las mismas reglas, por lo que nunca se ofrece un horario que después se rechazaría.
+- **Reservas simultáneas:** el alta bloquea al médico en una transacción y la base impide dos turnos confirmados en el mismo horario. Si alguien gana la reserva, el otro recibe un 409 y vuelve a elegir horario.
 - **Carga diferida:** las pantallas de cada rol, el login, el registro y el panel de inicio se descargan al entrar a ellos, y así el build de producción respeta el presupuesto configurado.
 - **Identidad visual:** colores, radios y sombras son variables CSS definidas en `src/styles/_tokens.scss`, y Angular Material se personaliza solo con su API de `overrides` en `src/styles/_material.scss`. Los íconos son Material Symbols.
 - **Panel de inicio:** cada rol ve indicadores calculados con los servicios existentes. No hay datos de ejemplo ni endpoints propios del panel.

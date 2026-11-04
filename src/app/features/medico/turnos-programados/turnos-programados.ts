@@ -93,6 +93,11 @@ export class TurnosProgramados {
     this.cargar();
   }
 
+  /** La API solo permite atender turnos de hoy o de días anteriores. */
+  protected esAtendible(turno: Turno): boolean {
+    return turno.fecha <= aFechaIso(new Date());
+  }
+
   alternarDetalle(turno: Turno): void {
     this.desplegado.update((actual) => (actual === turno.id ? null : turno.id));
   }
