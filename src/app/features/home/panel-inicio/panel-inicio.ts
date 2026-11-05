@@ -1,10 +1,8 @@
 import { DatePipe, formatDate } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { Observable, forkJoin, map } from 'rxjs';
 import { ETIQUETA_ACCION } from '../../../core/models/gestion.model';
 import { EstadoTurno, Turno } from '../../../core/models/turno.model';
@@ -13,7 +11,6 @@ import { AgendaService } from '../../../core/services/agenda';
 import { AuditoriaService } from '../../../core/services/auditoria';
 import { Auth } from '../../../core/services/auth';
 import { MedicoService } from '../../../core/services/medico';
-import { NotificacionService } from '../../../core/services/notificacion';
 import { ReporteService } from '../../../core/services/reporte';
 import { TurnoService } from '../../../core/services/turno';
 import { UsuarioService } from '../../../core/services/usuario';
@@ -22,7 +19,6 @@ import { aFechaIso, momentoTurno } from '../../../core/utils/fechas';
 import { EstadoLista } from '../../../shared/components/estado-lista/estado-lista';
 import { EstadoTurnoEtiqueta } from '../../../shared/components/estado-turno/estado-turno';
 import { DatosIndicador, Indicador } from '../../../shared/components/indicador/indicador';
-import { MENU_POR_ROL } from '../../../shared/menu-por-rol';
 
 const ITEMS_DE_ACTIVIDAD = 5;
 const LOCALE = 'es-AR';
@@ -60,12 +56,6 @@ const ACTIVIDAD_POR_ROL: Record<Rol, { titulo: string; vacio: string; ruta: stri
   },
 };
 
-/** Solo los roles que dan turnos tienen una operación que se destaca sobre las demás. */
-const RUTA_PRINCIPAL: Partial<Record<Rol, string>> = {
-  paciente: '/paciente/nuevo-turno',
-  operador: '/operador/asignar-turno',
-};
-
 function contar(turnos: Turno[], estado: EstadoTurno): number {
   return turnos.filter((turno) => turno.estado === estado).length;
 }
@@ -79,10 +69,8 @@ function contar(turnos: Turno[], estado: EstadoTurno): number {
     EstadoLista,
     EstadoTurnoEtiqueta,
     Indicador,
-    MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatListModule,
   ],
   templateUrl: './panel-inicio.html',
   styleUrl: './panel-inicio.scss',
@@ -91,32 +79,14 @@ export class PanelInicio {
   private readonly agendaService = inject(AgendaService);
   private readonly auditoriaService = inject(AuditoriaService);
   private readonly medicoService = inject(MedicoService);
-  private readonly notificaciones = inject(NotificacionService);
   private readonly reporteService = inject(ReporteService);
   private readonly turnoService = inject(TurnoService);
   private readonly usuarioService = inject(UsuarioService);
 
   protected readonly usuario = inject(Auth).usuario() as Usuario;
   protected readonly hoy = new Date();
-  protected readonly accesos = MENU_POR_ROL[this.usuario.rol];
-  protected readonly accionPrincipal = this.accesos.find(
-    (acceso) => acceso.ruta === RUTA_PRINCIPAL[this.usuario.rol],
-  );
   protected readonly actividad = ACTIVIDAD_POR_ROL[this.usuario.rol];
   protected readonly datos = new Carga<DatosPanel | null>(null);
-
-  protected readonly indicadores = computed(() => {
-    const indicadores = this.datos.datos()?.indicadores ?? [];
-    if (this.usuario.rol !== 'paciente') {
-      return indicadores;
-    }
-    const sinLeer: DatosIndicador = {
-      etiqueta: 'Avisos sin leer',
-      valor: this.notificaciones.noLeidas(),
-      icono: 'notifications',
-    };
-    return [...indicadores, sinLeer];
-  });
 
   constructor() {
     this.cargar();
@@ -226,11 +196,7 @@ export class PanelInicio {
           .filter((turno) => turno.estado === 'confirmado' && momentoTurno(turno) >= ahora)
           .sort((a, b) => momentoTurno(a) - momentoTurno(b));
         return {
-          indicadores: [
-            { etiqueta: 'Próximos turnos', valor: proximos.length, icono: 'calendar_month' },
-            { etiqueta: 'Turnos atendidos', valor: contar(turnos, 'atendido'), icono: 'check_circle' },
-            { etiqueta: 'Turnos cancelados', valor: contar(turnos, 'cancelado'), icono: 'event_busy' },
-          ],
+          indicadores: [],
           actividad: proximos.slice(0, ITEMS_DE_ACTIVIDAD).map((turno) => ({
             clave: turno.id,
             icono: 'stethoscope',

@@ -2,13 +2,6 @@
   text-transform: uppercase;
 }
 
-.columnas {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(330px, 1fr);
-  align-items: start;
-  gap: 16px;
-}
-
 .tarjeta {
   box-shadow: var(--sdg-sombra-1);
 }
@@ -105,16 +98,6 @@
 
   p {
     margin: 0;
-  }
-}
-
-.accesos {
-  padding: 4px 8px;
-}
-
-@media (max-width: 1099.98px) {
-  .columnas {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
 

@@ -4,12 +4,6 @@
       <h1>Hola, {{ usuario.nombre }}</h1>
       <p class="fecha-hoy">{{ hoy | date: 'fullDate' }}</p>
     </div>
-    @if (accionPrincipal; as accion) {
-      <a mat-flat-button [routerLink]="accion.ruta">
-        <mat-icon>{{ accion.icono }}</mat-icon>
-        {{ accion.etiqueta }}
-      </a>
-    }
   </div>
 
   <app-estado-lista
@@ -18,53 +12,38 @@
     [vacio]="!datos.datos()"
     (reintentar)="cargar()"
   >
-    <div class="indicadores">
-      @for (indicador of indicadores(); track indicador.etiqueta) {
-        <app-indicador [datos]="indicador" />
-      }
-    </div>
-
-    <div class="columnas">
-      <mat-card appearance="outlined" class="tarjeta">
-        <div class="tarjeta-encabezado">
-          <h2>{{ actividad.titulo }}</h2>
-          <a [routerLink]="actividad.ruta">Ver todo</a>
-        </div>
-
-        @for (item of datos.datos()?.actividad; track item.clave) {
-          <div class="actividad">
-            <span class="actividad-icono"><mat-icon aria-hidden="true">{{ item.icono }}</mat-icon></span>
-            <div class="actividad-texto">
-              <strong>{{ item.titulo }}</strong>
-              <small>{{ item.detalle }}</small>
-            </div>
-            @if (item.estado) {
-              <app-estado-turno [estado]="item.estado" />
-            }
-            <span class="actividad-momento">{{ item.momento }}</span>
-          </div>
-        } @empty {
-          <div class="actividad-vacia">
-            <mat-icon aria-hidden="true">inbox</mat-icon>
-            <p>{{ actividad.vacio }}</p>
-          </div>
+    @if (datos.datos()?.indicadores?.length) {
+      <div class="indicadores">
+        @for (indicador of datos.datos()?.indicadores; track indicador.etiqueta) {
+          <app-indicador [datos]="indicador" />
         }
-      </mat-card>
+      </div>
+    }
 
-      <mat-card appearance="outlined" class="tarjeta">
-        <div class="tarjeta-encabezado">
-          <h2>Accesos rápidos</h2>
-        </div>
-        <mat-nav-list class="accesos">
-          @for (acceso of accesos; track acceso.ruta) {
-            <a mat-list-item [routerLink]="acceso.ruta">
-              <mat-icon matListItemIcon aria-hidden="true">{{ acceso.icono }}</mat-icon>
-              <span matListItemTitle>{{ acceso.etiqueta }}</span>
-              <span matListItemLine>{{ acceso.descripcion }}</span>
-            </a>
+    <mat-card appearance="outlined" class="tarjeta">
+      <div class="tarjeta-encabezado">
+        <h2>{{ actividad.titulo }}</h2>
+        <a [routerLink]="actividad.ruta">Ver todo</a>
+      </div>
+
+      @for (item of datos.datos()?.actividad; track item.clave) {
+        <div class="actividad">
+          <span class="actividad-icono"><mat-icon aria-hidden="true">{{ item.icono }}</mat-icon></span>
+          <div class="actividad-texto">
+            <strong>{{ item.titulo }}</strong>
+            <small>{{ item.detalle }}</small>
+          </div>
+          @if (item.estado) {
+            <app-estado-turno [estado]="item.estado" />
           }
-        </mat-nav-list>
-      </mat-card>
-    </div>
+          <span class="actividad-momento">{{ item.momento }}</span>
+        </div>
+      } @empty {
+        <div class="actividad-vacia">
+          <mat-icon aria-hidden="true">inbox</mat-icon>
+          <p>{{ actividad.vacio }}</p>
+        </div>
+      }
+    </mat-card>
   </app-estado-lista>
 </section>

@@ -34,15 +34,6 @@ mat-icon {
 .footer-redes {
   display: inline-flex;
   gap: 12px;
-
-  a {
-    display: inline-flex;
-    color: inherit;
-
-    &:hover {
-      color: var(--sdg-azul-600);
-    }
-  }
 }
 
 // En pantallas angostas el footer fijo no puede ocupar más de una línea
